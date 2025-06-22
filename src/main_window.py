@@ -217,30 +217,6 @@ class MainWindow:
         )
         file_selection_frame.pack(fill=tk.BOTH, expand=True, pady=(0, 10))
         
-        # File tree buttons
-        tree_buttons_frame = tk.Frame(file_selection_frame, bg='white')
-        tree_buttons_frame.pack(fill=tk.X, padx=10, pady=(10, 0))
-        
-        self.select_all_button = ModernButton(
-            tree_buttons_frame,
-            text=self.localization.get('main_screen.select_all'),
-            command=self._select_all_files,
-            bg_color='#607D8B',
-            hover_color='#455A64',
-            font=('Segoe UI', 9)
-        )
-        self.select_all_button.pack(side=tk.LEFT, padx=(0, 5))
-        
-        self.deselect_all_button = ModernButton(
-            tree_buttons_frame,
-            text=self.localization.get('main_screen.deselect_all'),
-            command=self._deselect_all_files,
-            bg_color='#607D8B',
-            hover_color='#455A64',
-            font=('Segoe UI', 9)
-        )
-        self.deselect_all_button.pack(side=tk.LEFT)
-        
         # File tree widget
         self.file_tree = FileTreeWidget(file_selection_frame, bg='white')
         self.file_tree.pack(fill=tk.BOTH, expand=True, padx=10, pady=(5, 10))
@@ -414,11 +390,6 @@ class MainWindow:
             self.root.after(0, lambda: self.progress_bar.set_progress(0))
             self.root.after(0, lambda: self.progress_label.config(text=""))
     
-    def _select_all_files(self):
-        self.file_tree.select_all()
-    
-    def _deselect_all_files(self):
-        self.file_tree.deselect_all()
     
     def _on_file_selection_change(self, selected_count: int):
         # Update UI based on selection
@@ -542,8 +513,6 @@ class MainWindow:
         self.output_format_combo.config(state='readonly' if enabled else 'disabled')
         self.start_button.config(state=state if enabled and self.file_tree.get_selected_files() else tk.DISABLED)
         self.cancel_button.config(state=tk.NORMAL if not enabled else tk.DISABLED)
-        self.select_all_button.config(state=state)
-        self.deselect_all_button.config(state=state)
         
         if enabled:
             self.progress_bar.set_progress(0)
