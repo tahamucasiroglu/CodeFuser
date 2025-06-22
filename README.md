@@ -1,5 +1,7 @@
 # 🚀 CodeFuser / KodBirleştirici
 
+![image](/assets/Ornek.png)
+
 **English** | [Türkçe](#-türkçe)
 
 ---
