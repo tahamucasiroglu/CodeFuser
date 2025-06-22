@@ -10,6 +10,7 @@ from ui_components import (
     ModernScrolledText, AnimatedLabel, ModernCheckbox, ModernCombobox
 )
 from file_tree_widget import FileTreeWidget
+from settings_window import SettingsWindow
 from config_manager import ConfigManager
 from localization_manager import LocalizationManager
 from file_scanner import FileScanner, FileScannerProgress
@@ -36,16 +37,30 @@ class MainWindow:
     def _setup_window(self):
         self.root.title(self.localization.get('app_title'))
         
-        # Set window size and center it
-        window_size = self.config_manager.get('interface.window_size', '900x700')
-        width, height = map(int, window_size.split('x'))
-        
+        # Get screen dimensions
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
-        x = (screen_width - width) // 2
-        y = (screen_height - height) // 2
         
-        self.root.geometry(f"{width}x{height}+{x}+{y}")
+        # Check if fullscreen is enabled in settings
+        fullscreen_enabled = self.config_manager.get('interface.fullscreen', True)
+        
+        if fullscreen_enabled:
+            # Start maximized/fullscreen
+            self.root.state('zoomed')  # Windows
+            try:
+                self.root.attributes('-zoomed', True)  # Linux
+            except:
+                pass
+        else:
+            # Set window size and center it
+            window_size = self.config_manager.get('interface.window_size', '900x700')
+            width, height = map(int, window_size.split('x'))
+            
+            x = (screen_width - width) // 2
+            y = (screen_height - height) // 2
+            
+            self.root.geometry(f"{width}x{height}+{x}+{y}")
+        
         self.root.minsize(800, 600)
         
         # Set icon if available
@@ -519,8 +534,7 @@ class MainWindow:
             self.progress_label.config(text="")
     
     def _open_settings(self):
-        # This would open a settings dialog
-        messagebox.showinfo("Settings", "Settings dialog coming soon!")
+        settings_window = SettingsWindow(self.root, self.config_manager, self.localization)
     
     def _change_language(self, language_code: str):
         self.localization.set_language(language_code)

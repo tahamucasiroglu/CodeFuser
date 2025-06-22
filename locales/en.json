@@ -46,7 +46,8 @@
         "no_files_found": "No files found matching the criteria",
         "output_saved": "Output saved: {filepath}",
         "settings_saved": "Settings saved",
-        "confirm_reset": "All settings will be reset to default. Are you sure?"
+        "confirm_reset": "All settings will be reset to default. Are you sure?",
+        "restart_required": "Please restart the application for changes to take effect"
     },
     "file_types": {
         "all_files": "All Files",

@@ -46,7 +46,8 @@
         "no_files_found": "Seçilen kriterlere uygun dosya bulunamadı",
         "output_saved": "Çıktı kaydedildi: {filepath}",
         "settings_saved": "Ayarlar kaydedildi",
-        "confirm_reset": "Tüm ayarlar varsayılana dönecek. Emin misiniz?"
+        "confirm_reset": "Tüm ayarlar varsayılana dönecek. Emin misiniz?",
+        "restart_required": "Değişikliklerin etkili olması için uygulamayı yeniden başlatın"
     },
     "file_types": {
         "all_files": "Tüm Dosyalar",

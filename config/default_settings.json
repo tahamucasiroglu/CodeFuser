@@ -53,8 +53,9 @@
     },
     "interface": {
         "theme": "modern",
-        "window_size": "800x600",
-        "animations": true
+        "window_size": "900x700",
+        "animations": true,
+        "fullscreen": true
     },
     "language": "tr",
     "max_file_size_mb": 10,
