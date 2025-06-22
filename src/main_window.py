@@ -80,10 +80,27 @@ class MainWindow:
         
         # Set icon if available
         try:
-            icon_path = Path(__file__).parent.parent / 'assets' / 'icon.ico'
-            if icon_path.exists():
-                self.root.iconbitmap(str(icon_path))
-        except:
+            # Try different icon formats
+            icon_paths = [
+                Path(__file__).parent.parent / 'assets' / 'CodeFuser Logo.png',
+                Path(__file__).parent.parent / 'assets' / 'icon.ico',
+                Path(__file__).parent.parent / 'assets' / 'icon.png'
+            ]
+            
+            for icon_path in icon_paths:
+                if icon_path.exists():
+                    if icon_path.suffix.lower() == '.ico':
+                        self.root.iconbitmap(str(icon_path))
+                    else:
+                        # For PNG files, convert to PhotoImage
+                        from PIL import Image, ImageTk
+                        img = Image.open(icon_path)
+                        img = img.resize((32, 32), Image.Resampling.LANCZOS)
+                        photo = ImageTk.PhotoImage(img)
+                        self.root.iconphoto(False, photo)
+                    break
+        except Exception as e:
+            print(f"Could not set icon: {e}")
             pass
     
     def _create_menu(self):
@@ -123,6 +140,34 @@ class MainWindow:
         # Main container with padding
         main_frame = tk.Frame(self.root, bg='white')
         main_frame.pack(fill=tk.BOTH, expand=True, padx=20, pady=20)
+        
+        # Header with logo
+        header_frame = tk.Frame(main_frame, bg='white')
+        header_frame.pack(fill=tk.X, pady=(0, 20))
+        
+        # Try to load and display logo
+        try:
+            logo_path = Path(__file__).parent.parent / 'assets' / 'CodeFuser Logo.png'
+            if logo_path.exists():
+                from PIL import Image, ImageTk
+                img = Image.open(logo_path)
+                img = img.resize((48, 48), Image.Resampling.LANCZOS)
+                self.logo_photo = ImageTk.PhotoImage(img)
+                
+                logo_label = tk.Label(header_frame, image=self.logo_photo, bg='white')
+                logo_label.pack(side=tk.LEFT, padx=(0, 10))
+        except Exception as e:
+            print(f"Could not load header logo: {e}")
+        
+        # App title
+        title_label = tk.Label(
+            header_frame,
+            text="🚀 CodeFuser",
+            font=('Segoe UI', 16, 'bold'),
+            fg='#2E86AB',
+            bg='white'
+        )
+        title_label.pack(side=tk.LEFT, anchor='center')
         
         # Folder selection section
         folder_frame = tk.LabelFrame(
@@ -1072,15 +1117,92 @@ class MainWindow:
         )
     
     def _show_about(self):
-        about_text = f"""CodeFuser v1.0.0
+        # Create custom about dialog with logo
+        about_window = tk.Toplevel(self.root)
+        about_window.title(self.localization.get('menu.about'))
+        about_window.geometry("400x500")
+        about_window.transient(self.root)
+        about_window.grab_set()
+        about_window.configure(bg='white')
+        
+        # Center window
+        about_window.update_idletasks()
+        x = (about_window.winfo_screenwidth() // 2) - (400 // 2)
+        y = (about_window.winfo_screenheight() // 2) - (500 // 2)
+        about_window.geometry(f'+{x}+{y}')
+        
+        main_frame = tk.Frame(about_window, bg='white', padx=30, pady=30)
+        main_frame.pack(fill=tk.BOTH, expand=True)
+        
+        # Logo
+        try:
+            logo_path = Path(__file__).parent.parent / 'assets' / 'CodeFuser Logo.png'
+            if logo_path.exists():
+                from PIL import Image, ImageTk
+                img = Image.open(logo_path)
+                img = img.resize((96, 96), Image.Resampling.LANCZOS)
+                self.about_logo = ImageTk.PhotoImage(img)
+                
+                logo_label = tk.Label(main_frame, image=self.about_logo, bg='white')
+                logo_label.pack(pady=(0, 20))
+        except Exception:
+            pass
+        
+        # Title
+        title_label = tk.Label(
+            main_frame,
+            text="CodeFuser v1.0.0",
+            font=('Segoe UI', 18, 'bold'),
+            fg='#2E86AB',
+            bg='white'
+        )
+        title_label.pack(pady=(0, 10))
+        
+        # Subtitle
+        subtitle_label = tk.Label(
+            main_frame,
+            text="The Ultimate Code Aggregation Tool\nwith AI Integration",
+            font=('Segoe UI', 11),
+            fg='#666666',
+            bg='white',
+            justify='center'
+        )
+        subtitle_label.pack(pady=(0, 20))
+        
+        # Features
+        features_text = """Features:
+• Smart Templates (16x Prompt, Cursor Rules, etc.)
+• Advanced Filtering System
+• Multi-format Export (TXT, HTML, DOCX, PDF)
+• Git Integration
+• Turkish & English Support
 
-A modern tool for collecting and merging project files with custom prompts.
-
-Created with ❤️ using Python and Tkinter
-
+Built with Python & Tkinter
 © 2024 CodeFuser Team"""
         
-        messagebox.showinfo(self.localization.get('menu.about'), about_text)
+        features_label = tk.Label(
+            main_frame,
+            text=features_text,
+            font=('Segoe UI', 10),
+            fg='#333333',
+            bg='white',
+            justify='left'
+        )
+        features_label.pack(pady=(0, 20))
+        
+        # Close button
+        close_button = tk.Button(
+            main_frame,
+            text="Close",
+            command=about_window.destroy,
+            bg='#2E86AB',
+            fg='white',
+            font=('Segoe UI', 11),
+            relief=tk.FLAT,
+            padx=30,
+            pady=8
+        )
+        close_button.pack()
     
     def _apply_theme(self):
         # Apply modern theme colors

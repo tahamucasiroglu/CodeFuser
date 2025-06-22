@@ -1,0 +1,126 @@
+{
+  "name": "codefuser",
+  "displayName": "CodeFuser",
+  "description": "Combine project files into a single output with AI prompts - Turkish/English support",
+  "version": "1.0.0",
+  "publisher": "codefuser-team",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other",
+    "Snippets",
+    "Formatters"
+  ],
+  "keywords": [
+    "code",
+    "combine",
+    "merge",
+    "ai",
+    "prompt",
+    "16x",
+    "cursor",
+    "turkish",
+    "export"
+  ],
+  "activationEvents": [
+    "onCommand:codefuser.openPanel"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codefuser.openPanel",
+        "title": "Open CodeFuser",
+        "category": "CodeFuser",
+        "icon": "$(combine)"
+      },
+      {
+        "command": "codefuser.quickExport",
+        "title": "Quick Export Selected Files",
+        "category": "CodeFuser"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "codefuser.quickExport",
+          "when": "explorerResourceIsFolder || explorerResourceIsFile",
+          "group": "codefuser@1"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "codefuser.openPanel",
+          "when": "workspaceFolderCount > 0"
+        },
+        {
+          "command": "codefuser.quickExport",
+          "when": "workspaceFolderCount > 0"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "codefuser",
+          "title": "CodeFuser",
+          "icon": "$(combine)"
+        }
+      ]
+    },
+    "views": {
+      "codefuser": [
+        {
+          "id": "codefuserPanel",
+          "name": "File Manager",
+          "when": "workspaceFolderCount > 0"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "CodeFuser",
+      "properties": {
+        "codefuser.language": {
+          "type": "string",
+          "default": "en",
+          "enum": ["en", "tr"],
+          "enumDescriptions": ["English", "Türkçe"],
+          "description": "Interface language"
+        },
+        "codefuser.defaultOutputFormat": {
+          "type": "string",
+          "default": "txt",
+          "enum": ["txt", "html", "docx", "pdf"],
+          "description": "Default output format"
+        },
+        "codefuser.defaultTemplate": {
+          "type": "string",
+          "default": "custom",
+          "enum": ["custom", "16x_prompt", "cursor_rules", "claude_project", "documentation", "code_review"],
+          "description": "Default template"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "typescript": "^4.9.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/codefuser.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/codefuser/issues"
+  },
+  "homepage": "https://github.com/yourusername/codefuser#readme",
+  "license": "MIT",
+  "icon": "assets/CodeFuser Logo.png"
+}
