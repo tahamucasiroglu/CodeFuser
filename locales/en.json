@@ -1,0 +1,51 @@
+{
+    "language_name": "English",
+    "app_title": "CodeFuser",
+    "menu": {
+        "file": "File",
+        "settings": "Settings",
+        "language": "Language",
+        "help": "Help",
+        "about": "About"
+    },
+    "main_screen": {
+        "select_folder": "Select Folder",
+        "project_type": "Project Type",
+        "custom_extensions": "Custom Extensions",
+        "output_format": "Output Format",
+        "prompt_text": "Prompt Text",
+        "prompt_placeholder": "Enter the prompt text to be added at the beginning of each file...",
+        "start_process": "Start Process",
+        "cancel": "Cancel",
+        "browse": "Browse"
+    },
+    "settings": {
+        "title": "Settings",
+        "ignored_folders": "Ignored Folders",
+        "ignored_files": "Ignored Files",
+        "include_ignored": "Include ignored items",
+        "save": "Save",
+        "reset": "Reset to Default",
+        "add_new": "Add New",
+        "remove": "Remove"
+    },
+    "progress": {
+        "scanning": "Scanning files...",
+        "processing": "Processing: {filename}",
+        "generating": "Generating output...",
+        "completed": "Process completed!",
+        "error": "Error occurred: {error}"
+    },
+    "messages": {
+        "select_folder_first": "Please select a folder first",
+        "no_files_found": "No files found matching the criteria",
+        "output_saved": "Output saved: {filepath}",
+        "settings_saved": "Settings saved",
+        "confirm_reset": "All settings will be reset to default. Are you sure?"
+    },
+    "file_types": {
+        "all_files": "All Files",
+        "text_files": "Text Files",
+        "custom": "Custom"
+    }
+}

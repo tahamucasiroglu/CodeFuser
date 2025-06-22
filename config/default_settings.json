@@ -1,0 +1,62 @@
+{
+    "project_types": {
+        ".NET": [".cs", ".cshtml", ".csproj", ".json", ".config", ".sln"],
+        "C#": [".cs"],
+        "Python": [".py", ".pyx", ".pyi", "requirements.txt", "setup.py"],
+        "JavaScript": [".js", ".jsx", ".ts", ".tsx", ".json", "package.json"],
+        "Web": [".html", ".htm", ".css", ".scss", ".sass", ".js"],
+        "Java": [".java", ".xml", ".properties", "pom.xml"],
+        "C++": [".cpp", ".cc", ".cxx", ".h", ".hpp", ".hxx"],
+        "Go": [".go", "go.mod", "go.sum"],
+        "Rust": [".rs", "Cargo.toml"],
+        "Custom": []
+    },
+    "ignore_folders": [
+        "node_modules",
+        "wwwroot",
+        ".git",
+        "bin",
+        "obj",
+        "dist",
+        "build",
+        "__pycache__",
+        ".vscode",
+        ".idea",
+        "target",
+        "out",
+        ".vs",
+        "packages",
+        "vendor"
+    ],
+    "ignore_files": [
+        ".env",
+        ".env.local",
+        ".gitignore",
+        ".DS_Store",
+        "Thumbs.db",
+        "*.log",
+        "*.lock",
+        "*.pyc",
+        "*.pyo",
+        "*.class",
+        "*.exe",
+        "*.dll",
+        "*.so",
+        "*.dylib"
+    ],
+    "output_settings": {
+        "default_format": "txt",
+        "available_formats": ["txt", "docx", "pdf"],
+        "file_separator": "=== DOSYA: {filepath} ===",
+        "prompt_placeholder": "[PROMPT]",
+        "content_placeholder": "[İÇERİK]"
+    },
+    "interface": {
+        "theme": "modern",
+        "window_size": "800x600",
+        "animations": true
+    },
+    "language": "tr",
+    "max_file_size_mb": 10,
+    "encoding": "utf-8"
+}

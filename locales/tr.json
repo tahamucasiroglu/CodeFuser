@@ -1,0 +1,51 @@
+{
+    "language_name": "Türkçe",
+    "app_title": "CodeFuser",
+    "menu": {
+        "file": "Dosya",
+        "settings": "Ayarlar",
+        "language": "Dil",
+        "help": "Yardım",
+        "about": "Hakkında"
+    },
+    "main_screen": {
+        "select_folder": "Klasör Seç",
+        "project_type": "Proje Tipi",
+        "custom_extensions": "Özel Uzantılar",
+        "output_format": "Çıktı Formatı",
+        "prompt_text": "Prompt Metni",
+        "prompt_placeholder": "Her dosyanın başına eklenecek prompt metnini girin...",
+        "start_process": "İşlemi Başlat",
+        "cancel": "İptal",
+        "browse": "Gözat"
+    },
+    "settings": {
+        "title": "Ayarlar",
+        "ignored_folders": "Hariç Tutulacak Klasörler",
+        "ignored_files": "Hariç Tutulacak Dosyalar",
+        "include_ignored": "Hariç tutulanları dahil et",
+        "save": "Kaydet",
+        "reset": "Varsayılana Dön",
+        "add_new": "Yeni Ekle",
+        "remove": "Kaldır"
+    },
+    "progress": {
+        "scanning": "Dosyalar taranıyor...",
+        "processing": "İşleniyor: {filename}",
+        "generating": "Çıktı oluşturuluyor...",
+        "completed": "İşlem tamamlandı!",
+        "error": "Hata oluştu: {error}"
+    },
+    "messages": {
+        "select_folder_first": "Lütfen önce bir klasör seçin",
+        "no_files_found": "Seçilen kriterlere uygun dosya bulunamadı",
+        "output_saved": "Çıktı kaydedildi: {filepath}",
+        "settings_saved": "Ayarlar kaydedildi",
+        "confirm_reset": "Tüm ayarlar varsayılana dönecek. Emin misiniz?"
+    },
+    "file_types": {
+        "all_files": "Tüm Dosyalar",
+        "text_files": "Metin Dosyaları",
+        "custom": "Özel"
+    }
+}
