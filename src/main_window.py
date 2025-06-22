@@ -12,6 +12,8 @@ from ui_components import (
 from file_tree_widget import FileTreeWidget
 from settings_window import SettingsWindow
 from template_engine import TemplateEngine
+from git_integration import GitIntegration
+from smart_filters import SmartFilters
 from config_manager import ConfigManager
 from localization_manager import LocalizationManager
 from file_scanner import FileScanner, FileScannerProgress
@@ -26,6 +28,8 @@ class MainWindow:
         self.file_scanner = FileScanner(self.config_manager)
         self.output_manager = OutputManager(self.config_manager)
         self.template_engine = TemplateEngine(self.config_manager)
+        self.git_integration = GitIntegration(self.config_manager)
+        self.smart_filters = SmartFilters(self.config_manager)
         
         self.selected_folder = None
         self.scanned_files = []
@@ -223,7 +227,28 @@ class MainWindow:
             state='readonly',
             width=10
         )
-        self.output_format_combo.pack(side=tk.LEFT)
+        self.output_format_combo.pack(side=tk.LEFT, padx=(0, 20))
+        
+        # Advanced filters button
+        self.filters_button = ModernButton(
+            options_frame,
+            text="🔍 Advanced Filters",
+            command=self._show_advanced_filters,
+            bg_color='#9C27B0',
+            hover_color='#7B1FA2',
+            font=('Segoe UI', 9)
+        )
+        self.filters_button.pack(side=tk.LEFT)
+        
+        # Filter status label
+        self.filter_status_label = tk.Label(
+            options_frame,
+            text="",
+            bg='white',
+            fg='#666666',
+            font=('Segoe UI', 9)
+        )
+        self.filter_status_label.pack(side=tk.RIGHT, padx=(10, 0))
         
         # File selection section
         file_selection_frame = tk.LabelFrame(
@@ -354,8 +379,12 @@ class MainWindow:
         # Update extensions display
         self._on_project_type_changed()
         
-        # Store template variables
+        # Store template variables and active filters
         self.template_variables = {}
+        self.active_filters = {
+            'git_filter': 'all',
+            'smart_filters': []
+        }
     
     def _on_prompt_focus_in(self, event):
         if self.prompt_text.get('1.0', 'end-1c') == self.localization.get('main_screen.prompt_placeholder'):
@@ -438,8 +467,8 @@ class MainWindow:
             
             self.scanned_files = file_dicts
             
-            # Update file tree
-            self.root.after(0, lambda: self.file_tree.populate_tree(file_dicts))
+            # Apply active filters
+            self.root.after(0, lambda: self._apply_filters_to_files())
             
             # Stop progress
             self.root.after(0, lambda: self.progress_bar.set_indeterminate(False))
@@ -599,6 +628,311 @@ class MainWindow:
             prompt_text = ""
         
         return prompt_text
+    
+    def _show_advanced_filters(self):
+        """Show the advanced filters dialog"""
+        filters_window = tk.Toplevel(self.root)
+        filters_window.title("Advanced Filters")
+        filters_window.geometry("700x600")
+        filters_window.transient(self.root)
+        filters_window.grab_set()
+        
+        # Center window
+        filters_window.update_idletasks()
+        x = (filters_window.winfo_screenwidth() // 2) - (700 // 2)
+        y = (filters_window.winfo_screenheight() // 2) - (600 // 2)
+        filters_window.geometry(f'+{x}+{y}')
+        
+        main_frame = tk.Frame(filters_window, bg='white', padx=20, pady=20)
+        main_frame.pack(fill=tk.BOTH, expand=True)
+        
+        # Title
+        tk.Label(main_frame, text="🔍 Advanced Filters", 
+                font=('Segoe UI', 16, 'bold'), bg='white').pack(pady=(0, 20))
+        
+        # Create notebook for different filter types
+        notebook = ttk.Notebook(main_frame)
+        notebook.pack(fill=tk.BOTH, expand=True, pady=(0, 20))
+        
+        # Git Filters Tab
+        git_frame = tk.Frame(notebook, bg='white')
+        notebook.add(git_frame, text="🔄 Git Filters")
+        self._create_git_filters_tab(git_frame)
+        
+        # Smart Filters Tab
+        smart_frame = tk.Frame(notebook, bg='white')
+        notebook.add(smart_frame, text="🧠 Smart Filters")
+        self._create_smart_filters_tab(smart_frame)
+        
+        # Custom Filter Tab
+        custom_frame = tk.Frame(notebook, bg='white')
+        notebook.add(custom_frame, text="⚙️ Custom")
+        self._create_custom_filters_tab(custom_frame)
+        
+        # Buttons
+        button_frame = tk.Frame(main_frame, bg='white')
+        button_frame.pack(fill=tk.X)
+        
+        tk.Button(
+            button_frame,
+            text="Apply Filters",
+            command=lambda: self._apply_advanced_filters(filters_window),
+            bg='#4CAF50',
+            fg='white',
+            relief=tk.FLAT,
+            font=('Segoe UI', 11),
+            padx=20,
+            pady=8
+        ).pack(side=tk.RIGHT, padx=(10, 0))
+        
+        tk.Button(
+            button_frame,
+            text="Reset All",
+            command=self._reset_all_filters,
+            bg='#FF9800',
+            fg='white',
+            relief=tk.FLAT,
+            font=('Segoe UI', 11),
+            padx=20,
+            pady=8
+        ).pack(side=tk.RIGHT)
+        
+        tk.Button(
+            button_frame,
+            text="Cancel",
+            command=filters_window.destroy,
+            bg='#757575',
+            fg='white',
+            relief=tk.FLAT,
+            font=('Segoe UI', 11),
+            padx=20,
+            pady=8
+        ).pack(side=tk.LEFT)
+    
+    def _create_git_filters_tab(self, parent):
+        """Create Git filters tab content"""
+        # Check if current folder is a Git repository
+        is_git_repo = False
+        git_info = {}
+        
+        if self.selected_folder and self.git_integration.is_git_repository(self.selected_folder):
+            is_git_repo = True
+            git_info = self.git_integration.get_branch_info(self.selected_folder)
+        
+        if not is_git_repo:
+            # Show message if not a git repo
+            message_frame = tk.Frame(parent, bg='#fff3cd', relief=tk.SOLID, bd=1)
+            message_frame.pack(fill=tk.X, padx=10, pady=10)
+            
+            tk.Label(
+                message_frame,
+                text="⚠️ Selected folder is not a Git repository",
+                bg='#fff3cd',
+                fg='#856404',
+                font=('Segoe UI', 11),
+                pady=10
+            ).pack()
+            
+            tk.Label(
+                message_frame,
+                text="Git filters are only available for Git repositories.",
+                bg='#fff3cd',
+                fg='#856404',
+                font=('Segoe UI', 10),
+                pady=(0, 10)
+            ).pack()
+            return
+        
+        # Git repository info
+        info_frame = tk.LabelFrame(parent, text="Repository Info", bg='white', font=('Segoe UI', 11, 'bold'))
+        info_frame.pack(fill=tk.X, padx=10, pady=10)
+        
+        info_inner = tk.Frame(info_frame, bg='white')
+        info_inner.pack(padx=10, pady=10)
+        
+        info_text = f"Branch: {git_info.get('branch', 'unknown')}\n"
+        if 'last_commit_message' in git_info:
+            info_text += f"Last Commit: {git_info['last_commit_message'][:50]}...\n"
+        if 'last_commit_author' in git_info:
+            info_text += f"Author: {git_info['last_commit_author']}"
+        
+        tk.Label(info_inner, text=info_text, bg='white', font=('Segoe UI', 10), justify='left').pack(anchor='w')
+        
+        # Git filter options
+        filter_frame = tk.LabelFrame(parent, text="Filter Options", bg='white', font=('Segoe UI', 11, 'bold'))
+        filter_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        filter_inner = tk.Frame(filter_frame, bg='white')
+        filter_inner.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
+        
+        # Git filter selection
+        self.git_filter_var = tk.StringVar(value=self.active_filters['git_filter'])
+        
+        git_filters = self.git_integration.get_git_filters()
+        for filter_id, filter_name in git_filters:
+            rb = tk.Radiobutton(
+                filter_inner,
+                text=filter_name,
+                variable=self.git_filter_var,
+                value=filter_id,
+                bg='white',
+                font=('Segoe UI', 10),
+                anchor='w'
+            )
+            rb.pack(fill=tk.X, pady=2)
+    
+    def _create_smart_filters_tab(self, parent):
+        """Create Smart filters tab content"""
+        # Filter categories
+        filters_by_category = {}
+        for filter_id, filter_name, category in self.smart_filters.get_available_filters():
+            if category not in filters_by_category:
+                filters_by_category[category] = []
+            filters_by_category[category].append((filter_id, filter_name))
+        
+        # Create scrollable frame
+        canvas = tk.Canvas(parent, bg='white')
+        scrollbar = ttk.Scrollbar(parent, orient="vertical", command=canvas.yview)
+        scrollable_frame = tk.Frame(canvas, bg='white')
+        
+        scrollable_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+        )
+        
+        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
+        
+        # Pack scrollable components
+        canvas.pack(side="left", fill="both", expand=True, padx=10, pady=10)
+        scrollbar.pack(side="right", fill="y")
+        
+        # Store filter variables
+        self.smart_filter_vars = {}
+        
+        # Create filter checkboxes by category
+        for category, filters in filters_by_category.items():
+            # Category header
+            category_frame = tk.LabelFrame(scrollable_frame, text=category, bg='white', font=('Segoe UI', 11, 'bold'))
+            category_frame.pack(fill=tk.X, pady=5)
+            
+            category_inner = tk.Frame(category_frame, bg='white')
+            category_inner.pack(padx=10, pady=10, fill=tk.X)
+            
+            for filter_id, filter_name in filters:
+                var = tk.BooleanVar(value=filter_id in self.active_filters['smart_filters'])
+                self.smart_filter_vars[filter_id] = var
+                
+                cb = tk.Checkbutton(
+                    category_inner,
+                    text=filter_name,
+                    variable=var,
+                    bg='white',
+                    font=('Segoe UI', 10),
+                    anchor='w'
+                )
+                cb.pack(fill=tk.X, pady=1)
+        
+        # Bind mousewheel to canvas
+        def _on_mousewheel(event):
+            canvas.yview_scroll(int(-1*(event.delta/120)), "units")
+        canvas.bind("<MouseWheel>", _on_mousewheel)
+    
+    def _create_custom_filters_tab(self, parent):
+        """Create Custom filters tab content"""
+        tk.Label(parent, text="🚧 Custom Filters", font=('Segoe UI', 14, 'bold'), bg='white').pack(pady=20)
+        tk.Label(parent, text="Custom filter creation coming soon!", bg='white', fg='#666666').pack()
+        
+        # Placeholder for custom filter creation
+        # This could include:
+        # - File size range sliders
+        # - Extension selection
+        # - Custom regex patterns
+        # - Date range selectors
+        # etc.
+    
+    def _apply_advanced_filters(self, window):
+        """Apply the selected advanced filters"""
+        # Update active filters
+        if hasattr(self, 'git_filter_var'):
+            self.active_filters['git_filter'] = self.git_filter_var.get()
+        
+        if hasattr(self, 'smart_filter_vars'):
+            self.active_filters['smart_filters'] = [
+                filter_id for filter_id, var in self.smart_filter_vars.items() 
+                if var.get()
+            ]
+        
+        # Apply filters to current file list
+        self._apply_filters_to_files()
+        
+        # Update filter status
+        self._update_filter_status()
+        
+        window.destroy()
+        messagebox.showinfo("Success", "Filters applied successfully!")
+    
+    def _reset_all_filters(self):
+        """Reset all filters to default"""
+        self.active_filters = {
+            'git_filter': 'all',
+            'smart_filters': []
+        }
+        
+        # Reset UI elements
+        if hasattr(self, 'git_filter_var'):
+            self.git_filter_var.set('all')
+        
+        if hasattr(self, 'smart_filter_vars'):
+            for var in self.smart_filter_vars.values():
+                var.set(False)
+        
+        # Apply to files
+        self._apply_filters_to_files()
+        self._update_filter_status()
+    
+    def _apply_filters_to_files(self):
+        """Apply active filters to the current file list"""
+        if not self.scanned_files:
+            return
+        
+        filtered_files = self.scanned_files.copy()
+        
+        # Apply Git filter
+        if self.selected_folder and self.active_filters['git_filter'] != 'all':
+            filtered_files = self.git_integration.filter_files_by_git_status(
+                filtered_files, 
+                self.selected_folder, 
+                self.active_filters['git_filter']
+            )
+        
+        # Apply Smart filters
+        if self.active_filters['smart_filters']:
+            filtered_files = self.smart_filters.apply_multiple_filters(
+                filtered_files,
+                self.active_filters['smart_filters'],
+                operation='AND'  # Use AND operation for multiple smart filters
+            )
+        
+        # Update file tree
+        self.file_tree.populate_tree(filtered_files)
+    
+    def _update_filter_status(self):
+        """Update the filter status label"""
+        status_parts = []
+        
+        if self.active_filters['git_filter'] != 'all':
+            git_filters = dict(self.git_integration.get_git_filters())
+            status_parts.append(f"Git: {git_filters.get(self.active_filters['git_filter'], 'Unknown')}")
+        
+        if self.active_filters['smart_filters']:
+            count = len(self.active_filters['smart_filters'])
+            status_parts.append(f"Smart: {count} filter{'s' if count > 1 else ''}")
+        
+        if status_parts:
+            self.filter_status_label.config(text=f"🔍 Active: {', '.join(status_parts)}")
+        else:
+            self.filter_status_label.config(text="")
     
     def _on_project_type_changed(self, event=None):
         project_type = self.project_type_var.get()
