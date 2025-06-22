@@ -93,11 +93,14 @@ class MainWindow:
                         self.root.iconbitmap(str(icon_path))
                     else:
                         # For PNG files, convert to PhotoImage
-                        from PIL import Image, ImageTk
-                        img = Image.open(icon_path)
-                        img = img.resize((32, 32), Image.Resampling.LANCZOS)
-                        photo = ImageTk.PhotoImage(img)
-                        self.root.iconphoto(False, photo)
+                        try:
+                            from PIL import Image, ImageTk
+                            img = Image.open(icon_path)
+                            img = img.resize((32, 32), Image.Resampling.LANCZOS)
+                            photo = ImageTk.PhotoImage(img)
+                            self.root.iconphoto(False, photo)
+                        except ImportError:
+                            print("PIL not available, skipping PNG icon")
                     break
         except Exception as e:
             print(f"Could not set icon: {e}")
@@ -149,13 +152,16 @@ class MainWindow:
         try:
             logo_path = Path(__file__).parent.parent / 'assets' / 'CodeFuser Logo.png'
             if logo_path.exists():
-                from PIL import Image, ImageTk
-                img = Image.open(logo_path)
-                img = img.resize((48, 48), Image.Resampling.LANCZOS)
-                self.logo_photo = ImageTk.PhotoImage(img)
-                
-                logo_label = tk.Label(header_frame, image=self.logo_photo, bg='white')
-                logo_label.pack(side=tk.LEFT, padx=(0, 10))
+                try:
+                    from PIL import Image, ImageTk
+                    img = Image.open(logo_path)
+                    img = img.resize((48, 48), Image.Resampling.LANCZOS)
+                    self.logo_photo = ImageTk.PhotoImage(img)
+                    
+                    logo_label = tk.Label(header_frame, image=self.logo_photo, bg='white')
+                    logo_label.pack(side=tk.LEFT, padx=(0, 10))
+                except ImportError:
+                    print("PIL not available, header logo skipped")
         except Exception as e:
             print(f"Could not load header logo: {e}")
         
@@ -1138,13 +1144,17 @@ class MainWindow:
         try:
             logo_path = Path(__file__).parent.parent / 'assets' / 'CodeFuser Logo.png'
             if logo_path.exists():
-                from PIL import Image, ImageTk
-                img = Image.open(logo_path)
-                img = img.resize((96, 96), Image.Resampling.LANCZOS)
-                self.about_logo = ImageTk.PhotoImage(img)
-                
-                logo_label = tk.Label(main_frame, image=self.about_logo, bg='white')
-                logo_label.pack(pady=(0, 20))
+                try:
+                    from PIL import Image, ImageTk
+                    img = Image.open(logo_path)
+                    img = img.resize((96, 96), Image.Resampling.LANCZOS)
+                    self.about_logo = ImageTk.PhotoImage(img)
+                    
+                    logo_label = tk.Label(main_frame, image=self.about_logo, bg='white')
+                    logo_label.pack(pady=(0, 20))
+                except ImportError:
+                    # PIL not available, skip logo
+                    pass
         except Exception:
             pass
         

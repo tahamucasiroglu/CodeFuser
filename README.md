@@ -210,6 +210,38 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Built with Python, Tkinter, and modern web technologies
 - Turkish language support for the local developer community
 
+## 🗺️ Roadmap
+
+### 🚀 Version 1.1 (Q2 2024)
+- [ ] **Advanced Custom Filters**: Visual filter builder with drag-drop interface
+- [ ] **AI Integration**: Direct ChatGPT/Claude API integration
+- [ ] **Batch Processing**: Process multiple projects simultaneously
+- [ ] **Export Scheduling**: Automated periodic exports
+- [ ] **Cloud Storage**: Google Drive, Dropbox, OneDrive integration
+
+### 🎯 Version 1.2 (Q3 2024)
+- [ ] **Collaborative Features**: Share templates and filters with team
+- [ ] **Project Profiles**: Save and restore project configurations
+- [ ] **Advanced Search**: Full-text search across exported files
+- [ ] **Plugin System**: Third-party extensions support
+- [ ] **Mobile Companion**: View exports on mobile devices
+
+### 🔮 Version 2.0 (Q4 2024)
+- [ ] **Web Interface**: Browser-based version
+- [ ] **Real-time Collaboration**: Live editing and sharing
+- [ ] **AI-Powered Analysis**: Automatic code quality suggestions
+- [ ] **Enterprise Features**: SSO, audit logs, compliance
+- [ ] **Multi-Language Expansion**: French, German, Spanish, Japanese
+
+### 💡 Community Requests
+- [ ] **Database Integration**: Connect to code in databases
+- [ ] **Docker Support**: Containerized deployments
+- [ ] **Jupyter Notebook**: Integration with data science workflows
+- [ ] **More IDE Extensions**: IntelliJ, Sublime Text, Atom
+- [ ] **API Access**: RESTful API for automation
+
+**Vote for features** in our [GitHub Discussions](https://github.com/yourusername/codefuser/discussions)!
+
 ## 📞 Support
 
 - **GitHub Issues**: [Report bugs or request features](https://github.com/yourusername/codefuser/issues)
@@ -435,6 +467,38 @@ Bu proje MIT Lisansı altında lisanslanmıştır - detaylar için [LICENSE](LIC
 - 16x Prompt ve PasteMax'ten ilham alınmıştır
 - Python, Tkinter ve modern web teknolojileri ile geliştirilmiştir
 - Yerel geliştirici topluluğu için Türkçe dil desteği
+
+## 🗺️ Yol Haritası
+
+### 🚀 Versiyon 1.1 (2024 Q2)
+- [ ] **Gelişmiş Özel Filtreler**: Sürükle-bırak arayüzü ile görsel filtre oluşturucu
+- [ ] **Yapay Zeka Entegrasyonu**: Doğrudan ChatGPT/Claude API entegrasyonu
+- [ ] **Toplu İşleme**: Birden fazla projeyi eş zamanlı işleme
+- [ ] **Dışa Aktarma Zamanlaması**: Otomatik periyodik dışa aktarmalar
+- [ ] **Bulut Depolama**: Google Drive, Dropbox, OneDrive entegrasyonu
+
+### 🎯 Versiyon 1.2 (2024 Q3)
+- [ ] **İşbirliği Özellikleri**: Takımla şablon ve filtre paylaşımı
+- [ ] **Proje Profilleri**: Proje konfigürasyonlarını kaydet ve geri yükle
+- [ ] **Gelişmiş Arama**: Dışa aktarılan dosyalarda tam metin arama
+- [ ] **Eklenti Sistemi**: Üçüncü taraf uzantı desteği
+- [ ] **Mobil Companion**: Mobil cihazlarda dışa aktarılanları görüntüleme
+
+### 🔮 Versiyon 2.0 (2024 Q4)
+- [ ] **Web Arayüzü**: Tarayıcı tabanlı versiyon
+- [ ] **Gerçek Zamanlı İşbirliği**: Canlı düzenleme ve paylaşım
+- [ ] **Yapay Zeka Destekli Analiz**: Otomatik kod kalitesi önerileri
+- [ ] **Kurumsal Özellikler**: SSO, denetim logları, uyumluluk
+- [ ] **Çoklu Dil Genişletmesi**: Fransızca, Almanca, İspanyolca, Japonca
+
+### 💡 Topluluk İstekleri
+- [ ] **Veritabanı Entegrasyonu**: Veritabanlarındaki kodlara bağlantı
+- [ ] **Docker Desteği**: Konteynerleştirilmiş dağıtımlar
+- [ ] **Jupyter Notebook**: Veri bilimi iş akışları ile entegrasyon
+- [ ] **Daha Fazla IDE Uzantısı**: IntelliJ, Sublime Text, Atom
+- [ ] **API Erişimi**: Otomasyon için RESTful API
+
+**Özellikler için oy verin**: [GitHub Tartışmalarımızda](https://github.com/yourusername/codefuser/discussions)!
 
 ## 📞 Destek
 
