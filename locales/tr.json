@@ -14,10 +14,15 @@
         "custom_extensions": "Özel Uzantılar",
         "output_format": "Çıktı Formatı",
         "prompt_text": "Prompt Metni",
-        "prompt_placeholder": "Her dosyanın başına eklenecek prompt metnini girin...",
+        "prompt_placeholder": "Tüm çıktının başına eklenecek prompt metnini girin...",
         "start_process": "İşlemi Başlat",
         "cancel": "İptal",
-        "browse": "Gözat"
+        "browse": "Gözat",
+        "scan_files": "Dosyaları Tara",
+        "file_selection": "Dosya Seçimi",
+        "select_all": "Tümünü Seç",
+        "deselect_all": "Seçimi Kaldır",
+        "no_files_scanned": "Henüz dosya taranmadı. Lütfen önce bir klasör seçin ve 'Dosyaları Tara' butonuna tıklayın."
     },
     "settings": {
         "title": "Ayarlar",

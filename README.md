@@ -1,0 +1,1 @@
+Python ile projeleri Ai ile iletişim için kullanmak amaçlı, proje kodlarını txt haline getiren program

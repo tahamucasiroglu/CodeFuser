@@ -2,13 +2,14 @@ import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 from pathlib import Path
 import threading
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 import json
 
 from ui_components import (
     ModernButton, AnimatedProgressBar, ModernEntry, 
     ModernScrolledText, AnimatedLabel, ModernCheckbox, ModernCombobox
 )
+from file_tree_widget import FileTreeWidget
 from config_manager import ConfigManager
 from localization_manager import LocalizationManager
 from file_scanner import FileScanner, FileScannerProgress
@@ -36,7 +37,7 @@ class MainWindow:
         self.root.title(self.localization.get('app_title'))
         
         # Set window size and center it
-        window_size = self.config_manager.get('interface.window_size', '800x600')
+        window_size = self.config_manager.get('interface.window_size', '900x700')
         width, height = map(int, window_size.split('x'))
         
         screen_width = self.root.winfo_screenwidth()
@@ -45,7 +46,7 @@ class MainWindow:
         y = (screen_height - height) // 2
         
         self.root.geometry(f"{width}x{height}+{x}+{y}")
-        self.root.minsize(600, 500)
+        self.root.minsize(800, 600)
         
         # Set icon if available
         try:
@@ -122,6 +123,16 @@ class MainWindow:
         )
         self.browse_button.pack(side=tk.LEFT)
         
+        # Scan files button
+        self.scan_button = ModernButton(
+            folder_inner,
+            text=self.localization.get('main_screen.scan_files'),
+            command=self._scan_files,
+            bg_color='#4CAF50',
+            hover_color='#45A049'
+        )
+        self.scan_button.pack(side=tk.LEFT, padx=(10, 0))
+        
         # Project type selection
         type_frame = tk.LabelFrame(
             main_frame,
@@ -197,6 +208,44 @@ class MainWindow:
         )
         self.output_format_combo.pack(side=tk.LEFT)
         
+        # File selection section
+        file_selection_frame = tk.LabelFrame(
+            main_frame,
+            text=self.localization.get('main_screen.file_selection'),
+            bg='white',
+            font=('Segoe UI', 11, 'bold')
+        )
+        file_selection_frame.pack(fill=tk.BOTH, expand=True, pady=(0, 10))
+        
+        # File tree buttons
+        tree_buttons_frame = tk.Frame(file_selection_frame, bg='white')
+        tree_buttons_frame.pack(fill=tk.X, padx=10, pady=(10, 0))
+        
+        self.select_all_button = ModernButton(
+            tree_buttons_frame,
+            text=self.localization.get('main_screen.select_all'),
+            command=self._select_all_files,
+            bg_color='#607D8B',
+            hover_color='#455A64',
+            font=('Segoe UI', 9)
+        )
+        self.select_all_button.pack(side=tk.LEFT, padx=(0, 5))
+        
+        self.deselect_all_button = ModernButton(
+            tree_buttons_frame,
+            text=self.localization.get('main_screen.deselect_all'),
+            command=self._deselect_all_files,
+            bg_color='#607D8B',
+            hover_color='#455A64',
+            font=('Segoe UI', 9)
+        )
+        self.deselect_all_button.pack(side=tk.LEFT)
+        
+        # File tree widget
+        self.file_tree = FileTreeWidget(file_selection_frame, bg='white')
+        self.file_tree.pack(fill=tk.BOTH, expand=True, padx=10, pady=(5, 10))
+        self.file_tree.on_selection_change = self._on_file_selection_change
+        
         # Prompt section
         prompt_frame = tk.LabelFrame(
             main_frame,
@@ -246,7 +295,8 @@ class MainWindow:
             text=self.localization.get('main_screen.start_process'),
             command=self._start_process,
             bg_color='#4CAF50',
-            hover_color='#45A049'
+            hover_color='#45A049',
+            state=tk.DISABLED
         )
         self.start_button.pack(side=tk.RIGHT, padx=(10, 0))
         
@@ -280,18 +330,11 @@ class MainWindow:
         if folder:
             self.selected_folder = Path(folder)
             self.folder_path_var.set(str(self.selected_folder))
+            # Clear file tree when new folder is selected
+            self.file_tree.populate_tree([])
+            self.scanned_files = []
     
-    def _on_project_type_changed(self, event=None):
-        project_type = self.project_type_var.get()
-        if project_type and project_type != 'Custom':
-            extensions = self.config_manager.get_project_types().get(project_type, [])
-            self.custom_extensions_var.set(', '.join(extensions))
-            self.custom_extensions_entry.entry.config(state='readonly')
-        else:
-            self.custom_extensions_entry.entry.config(state='normal')
-            self.custom_extensions_var.set('')
-    
-    def _start_process(self):
+    def _scan_files(self):
         if not self.selected_folder:
             messagebox.showwarning(
                 self.localization.get('app_title'),
@@ -313,28 +356,23 @@ class MainWindow:
             )
             return
         
-        # Get prompt
-        prompt_text = self.prompt_text.get('1.0', 'end-1c')
-        if prompt_text == self.localization.get('main_screen.prompt_placeholder'):
-            prompt_text = ""
+        # Disable UI during scanning
+        self.scan_button.config(state=tk.DISABLED)
+        self.start_button.config(state=tk.DISABLED)
         
-        # Disable UI
-        self._set_ui_state(False)
-        self.is_processing = True
-        
-        # Start processing in background thread
+        # Start scanning in background thread
         thread = threading.Thread(
-            target=self._process_files,
-            args=(extensions, self.include_ignored_var.get(), prompt_text)
+            target=self._scan_files_thread,
+            args=(extensions, self.include_ignored_var.get())
         )
         thread.daemon = True
         thread.start()
     
-    def _process_files(self, extensions: List[str], include_ignored: bool, prompt: str):
+    def _scan_files_thread(self, extensions: List[str], include_ignored: bool):
         try:
             # Update progress
-            self.progress_label.start_animation(self.localization.get('progress.scanning'))
-            self.progress_bar.set_indeterminate(True)
+            self.root.after(0, lambda: self.progress_label.start_animation(self.localization.get('progress.scanning')))
+            self.root.after(0, lambda: self.progress_bar.set_indeterminate(True))
             
             # Scan files
             files = self.file_scanner.scan_directory(
@@ -344,19 +382,7 @@ class MainWindow:
                 self._update_progress
             )
             
-            if not files:
-                self.root.after(0, lambda: messagebox.showinfo(
-                    self.localization.get('app_title'),
-                    self.localization.get('messages.no_files_found')
-                ))
-                return
-            
-            # Generate output
-            self.progress_label.config(text=self.localization.get('progress.generating'))
-            self.progress_bar.set_indeterminate(False)
-            self.progress_bar.set_progress(90)
-            
-            # Convert FileInfo objects to dicts for output manager
+            # Convert FileInfo objects to dicts for file tree
             file_dicts = [
                 {
                     'path': f.path,
@@ -366,13 +392,107 @@ class MainWindow:
                 for f in files
             ]
             
+            self.scanned_files = file_dicts
+            
+            # Update file tree
+            self.root.after(0, lambda: self.file_tree.populate_tree(file_dicts))
+            
+            # Stop progress
+            self.root.after(0, lambda: self.progress_bar.set_indeterminate(False))
+            self.root.after(0, lambda: self.progress_bar.set_progress(100))
+            self.root.after(0, lambda: self.progress_label.stop_animation(f"Found {len(files)} files"))
+            
+        except Exception as e:
+            self.root.after(0, lambda: messagebox.showerror(
+                self.localization.get('app_title'),
+                self.localization.get('progress.error', error=str(e))
+            ))
+        finally:
+            # Re-enable UI
+            self.root.after(0, lambda: self.scan_button.config(state=tk.NORMAL))
+            self.root.after(0, lambda: self.start_button.config(state=tk.NORMAL))
+            self.root.after(0, lambda: self.progress_bar.set_progress(0))
+            self.root.after(0, lambda: self.progress_label.config(text=""))
+    
+    def _select_all_files(self):
+        self.file_tree.select_all()
+    
+    def _deselect_all_files(self):
+        self.file_tree.deselect_all()
+    
+    def _on_file_selection_change(self, selected_count: int):
+        # Update UI based on selection
+        if selected_count > 0:
+            self.start_button.config(state=tk.NORMAL)
+        else:
+            self.start_button.config(state=tk.DISABLED)
+    
+    def _on_project_type_changed(self, event=None):
+        project_type = self.project_type_var.get()
+        if project_type and project_type != 'Custom':
+            extensions = self.config_manager.get_project_types().get(project_type, [])
+            self.custom_extensions_var.set(', '.join(extensions))
+            self.custom_extensions_entry.entry.config(state='readonly')
+        else:
+            self.custom_extensions_entry.entry.config(state='normal')
+            self.custom_extensions_var.set('')
+    
+    def _start_process(self):
+        # Get selected files from file tree
+        selected_files = self.file_tree.get_selected_files()
+        
+        if not selected_files:
+            messagebox.showwarning(
+                self.localization.get('app_title'),
+                "Please select at least one file to process"
+            )
+            return
+        
+        # Get prompt
+        prompt_text = self.prompt_text.get('1.0', 'end-1c')
+        if prompt_text == self.localization.get('main_screen.prompt_placeholder'):
+            prompt_text = ""
+        
+        # Disable UI
+        self._set_ui_state(False)
+        self.is_processing = True
+        
+        # Get only selected files
+        files_to_process = [f for f in self.scanned_files if f['relative_path'] in selected_files]
+        
+        # Start processing in background thread
+        thread = threading.Thread(
+            target=self._process_files,
+            args=(files_to_process, prompt_text)
+        )
+        thread.daemon = True
+        thread.start()
+    
+    def _process_files(self, files: List[Dict[str, Any]], prompt: str):
+        try:
+            # Update progress
+            self.progress_label.start_animation(self.localization.get('progress.generating'))
+            self.progress_bar.set_progress(50)
+            
+            if not files:
+                self.root.after(0, lambda: messagebox.showinfo(
+                    self.localization.get('app_title'),
+                    "No files selected"
+                ))
+                return
+            
+            # Generate output
+            self.progress_label.config(text=self.localization.get('progress.generating'))
+            self.progress_bar.set_indeterminate(False)
+            self.progress_bar.set_progress(90)
+            
             # Create output file
             output_format = self.output_format_var.get()
             output_filename = f"codefuser_output.{output_format}"
             output_path = self.selected_folder / output_filename
             
             output_path = self.output_manager.create_output(
-                file_dicts,
+                files,
                 output_path,
                 output_format,
                 prompt
@@ -417,10 +537,13 @@ class MainWindow:
         state = tk.NORMAL if enabled else tk.DISABLED
         
         self.browse_button.config(state=state)
+        self.scan_button.config(state=state)
         self.project_type_combo.config(state='readonly' if enabled else 'disabled')
         self.output_format_combo.config(state='readonly' if enabled else 'disabled')
-        self.start_button.config(state=state)
+        self.start_button.config(state=state if enabled and self.file_tree.get_selected_files() else tk.DISABLED)
         self.cancel_button.config(state=tk.NORMAL if not enabled else tk.DISABLED)
+        self.select_all_button.config(state=state)
+        self.deselect_all_button.config(state=state)
         
         if enabled:
             self.progress_bar.set_progress(0)

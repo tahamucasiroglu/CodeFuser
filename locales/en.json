@@ -14,10 +14,15 @@
         "custom_extensions": "Custom Extensions",
         "output_format": "Output Format",
         "prompt_text": "Prompt Text",
-        "prompt_placeholder": "Enter the prompt text to be added at the beginning of each file...",
+        "prompt_placeholder": "Enter the prompt text to be added at the beginning of the output...",
         "start_process": "Start Process",
         "cancel": "Cancel",
-        "browse": "Browse"
+        "browse": "Browse",
+        "scan_files": "Scan Files",
+        "file_selection": "File Selection",
+        "select_all": "Select All",
+        "deselect_all": "Deselect All",
+        "no_files_scanned": "No files scanned yet. Please select a folder first and click 'Scan Files' button."
     },
     "settings": {
         "title": "Settings",
