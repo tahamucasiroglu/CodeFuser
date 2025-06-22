@@ -35,6 +35,15 @@ class MainWindow:
         self.scanned_files = []
         self.is_processing = False
         
+        # Filter tracking
+        self.active_filters = {
+            'git_filter': 'all',
+            'smart_filters': []
+        }
+        
+        # Template variables
+        self.template_variables = {}
+        
         self._setup_window()
         self._create_menu()
         self._create_widgets()
@@ -633,14 +642,14 @@ class MainWindow:
         """Show the advanced filters dialog"""
         filters_window = tk.Toplevel(self.root)
         filters_window.title("Advanced Filters")
-        filters_window.geometry("700x600")
+        filters_window.geometry("900x750")
         filters_window.transient(self.root)
         filters_window.grab_set()
         
         # Center window
         filters_window.update_idletasks()
-        x = (filters_window.winfo_screenwidth() // 2) - (700 // 2)
-        y = (filters_window.winfo_screenheight() // 2) - (600 // 2)
+        x = (filters_window.winfo_screenwidth() // 2) - (900 // 2)
+        y = (filters_window.winfo_screenheight() // 2) - (750 // 2)
         filters_window.geometry(f'+{x}+{y}')
         
         main_frame = tk.Frame(filters_window, bg='white', padx=20, pady=20)
