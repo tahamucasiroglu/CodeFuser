@@ -1,0 +1,12 @@
+{
+    "name": "16x Prompt Style",
+    "description": "Popular 16x prompt format for AI code analysis",
+    "template": "# 16x Prompt Analysis\n\n## Project Overview\n- **Project Name**: {project_name}\n- **Total Files**: {file_count}\n- **Primary Language**: {primary_language}\n- **Generated**: {timestamp}\n\n## Instructions\nAnalyze this codebase and provide insights on:\n1. Code structure and architecture\n2. Potential improvements\n3. Security considerations\n4. Performance optimizations\n\n## Code Files\n\n{file_contents}\n\n## Analysis Request\nPlease provide a comprehensive analysis of this codebase focusing on code quality, maintainability, and best practices.",
+    "variables": [
+        "project_name",
+        "file_count",
+        "primary_language",
+        "timestamp",
+        "file_contents"
+    ]
+}

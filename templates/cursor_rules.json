@@ -1,0 +1,13 @@
+{
+    "name": "Cursor IDE Rules",
+    "description": "Template for Cursor IDE .cursorrules file",
+    "template": "# Cursor IDE Rules for {project_name}\n\n## Project Context\nThis is a {primary_language} project with {file_count} files.\nGenerated on {timestamp}\n\n## Coding Standards\n- Follow {primary_language} best practices\n- Maintain consistent code style\n- Add meaningful comments\n- Write unit tests for new features\n\n## Project Structure\n{file_structure}\n\n## Key Files\n{file_contents}\n\n## Instructions for AI\nWhen working on this project:\n1. Understand the existing code structure\n2. Maintain consistency with current patterns\n3. Suggest improvements where appropriate\n4. Focus on code quality and maintainability",
+    "variables": [
+        "project_name",
+        "primary_language",
+        "file_count",
+        "timestamp",
+        "file_structure",
+        "file_contents"
+    ]
+}

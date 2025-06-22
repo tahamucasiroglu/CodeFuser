@@ -11,6 +11,7 @@ from ui_components import (
 )
 from file_tree_widget import FileTreeWidget
 from settings_window import SettingsWindow
+from template_engine import TemplateEngine
 from config_manager import ConfigManager
 from localization_manager import LocalizationManager
 from file_scanner import FileScanner, FileScannerProgress
@@ -24,6 +25,7 @@ class MainWindow:
         self.localization = LocalizationManager(self.config_manager)
         self.file_scanner = FileScanner(self.config_manager)
         self.output_manager = OutputManager(self.config_manager)
+        self.template_engine = TemplateEngine(self.config_manager)
         
         self.selected_folder = None
         self.scanned_files = []
@@ -246,6 +248,54 @@ class MainWindow:
         )
         prompt_frame.pack(fill=tk.BOTH, expand=True, pady=(0, 10))
         
+        # Template selection
+        template_selector_frame = tk.Frame(prompt_frame, bg='white')
+        template_selector_frame.pack(fill=tk.X, padx=10, pady=(10, 0))
+        
+        tk.Label(
+            template_selector_frame,
+            text="📄 Template:",
+            bg='white',
+            font=('Segoe UI', 10)
+        ).pack(side=tk.LEFT, padx=(0, 5))
+        
+        # Get available templates
+        templates = self.template_engine.get_available_templates()
+        template_names = ['Custom'] + [f"{data['name']} ({tid})" for tid, data in templates.items()]
+        
+        self.template_var = tk.StringVar(value='Custom')
+        self.template_combo = ModernCombobox(
+            template_selector_frame,
+            textvariable=self.template_var,
+            values=template_names,
+            state='readonly',
+            width=30
+        )
+        self.template_combo.pack(side=tk.LEFT, padx=(0, 10))
+        self.template_combo.bind('<<ComboboxSelected>>', self._on_template_changed)
+        
+        # Template info button
+        self.template_info_button = ModernButton(
+            template_selector_frame,
+            text="ℹ️ Info",
+            command=self._show_template_info,
+            bg_color='#607D8B',
+            hover_color='#455A64',
+            font=('Segoe UI', 9)
+        )
+        self.template_info_button.pack(side=tk.LEFT, padx=(0, 10))
+        
+        # Variables button (for template variables)
+        self.variables_button = ModernButton(
+            template_selector_frame,
+            text="🔧 Variables",
+            command=self._show_template_variables,
+            bg_color='#FF9800',
+            hover_color='#F57C00',
+            font=('Segoe UI', 9)
+        )
+        self.variables_button.pack(side=tk.LEFT)
+        
         self.prompt_text = ModernScrolledText(
             prompt_frame,
             height=6,
@@ -303,6 +353,9 @@ class MainWindow:
         
         # Update extensions display
         self._on_project_type_changed()
+        
+        # Store template variables
+        self.template_variables = {}
     
     def _on_prompt_focus_in(self, event):
         if self.prompt_text.get('1.0', 'end-1c') == self.localization.get('main_screen.prompt_placeholder'):
@@ -413,6 +466,140 @@ class MainWindow:
         else:
             self.start_button.config(state=tk.DISABLED)
     
+    def _on_template_changed(self, event=None):
+        selected = self.template_var.get()
+        if selected == 'Custom':
+            return
+        
+        # Extract template ID from the selection
+        template_id = selected.split(' (')[-1].rstrip(')')
+        templates = self.template_engine.get_available_templates()
+        
+        if template_id in templates:
+            template_data = templates[template_id]
+            # Set the template content in the prompt text area
+            self.prompt_text.delete('1.0', tk.END)
+            self.prompt_text.insert('1.0', template_data['template'])
+            self.prompt_text.config(fg='black')
+    
+    def _show_template_info(self):
+        selected = self.template_var.get()
+        if selected == 'Custom':
+            messagebox.showinfo("Template Info", "Custom template - write your own prompt")
+            return
+        
+        template_id = selected.split(' (')[-1].rstrip(')')
+        templates = self.template_engine.get_available_templates()
+        
+        if template_id in templates:
+            template_data = templates[template_id]
+            info = f"Name: {template_data['name']}\n\n"
+            info += f"Description: {template_data['description']}\n\n"
+            info += f"Variables: {', '.join(template_data.get('variables', []))}"
+            messagebox.showinfo("Template Info", info)
+    
+    def _show_template_variables(self):
+        # Create a simple dialog for template variables
+        variables_window = tk.Toplevel(self.root)
+        variables_window.title("Template Variables")
+        variables_window.geometry("400x300")
+        variables_window.transient(self.root)
+        variables_window.grab_set()
+        
+        # Center window
+        variables_window.update_idletasks()
+        x = (variables_window.winfo_screenwidth() // 2) - (400 // 2)
+        y = (variables_window.winfo_screenheight() // 2) - (300 // 2)
+        variables_window.geometry(f'+{x}+{y}')
+        
+        main_frame = tk.Frame(variables_window, bg='white', padx=20, pady=20)
+        main_frame.pack(fill=tk.BOTH, expand=True)
+        
+        tk.Label(main_frame, text="Template Variables", font=('Segoe UI', 14, 'bold'), bg='white').pack(pady=(0, 20))
+        
+        # Common variables
+        variables = [
+            ('project_name', 'Project Name', 'MyProject'),
+            ('custom_instructions', 'Custom Instructions', 'Add any specific instructions here'),
+            ('analysis_focus', 'Analysis Focus', 'code quality, security, performance')
+        ]
+        
+        self.var_entries = {}
+        for var_name, label, default in variables:
+            var_frame = tk.Frame(main_frame, bg='white')
+            var_frame.pack(fill=tk.X, pady=5)
+            
+            tk.Label(var_frame, text=f"{label}:", bg='white', font=('Segoe UI', 10)).pack(anchor='w')
+            
+            entry = tk.Entry(var_frame, font=('Segoe UI', 10))
+            entry.pack(fill=tk.X, pady=(2, 0))
+            entry.insert(0, self.template_variables.get(var_name, default))
+            
+            self.var_entries[var_name] = entry
+        
+        # Buttons
+        button_frame = tk.Frame(main_frame, bg='white')
+        button_frame.pack(fill=tk.X, pady=(20, 0))
+        
+        tk.Button(
+            button_frame,
+            text="Apply Variables",
+            command=lambda: self._apply_variables(variables_window),
+            bg='#4CAF50',
+            fg='white',
+            relief=tk.FLAT,
+            font=('Segoe UI', 10),
+            padx=20
+        ).pack(side=tk.RIGHT, padx=(10, 0))
+        
+        tk.Button(
+            button_frame,
+            text="Cancel",
+            command=variables_window.destroy,
+            bg='#757575',
+            fg='white',
+            relief=tk.FLAT,
+            font=('Segoe UI', 10),
+            padx=20
+        ).pack(side=tk.RIGHT)
+    
+    def _apply_variables(self, window):
+        # Save variables
+        for var_name, entry in self.var_entries.items():
+            self.template_variables[var_name] = entry.get()
+        
+        window.destroy()
+        messagebox.showinfo("Success", "Template variables updated!")
+    
+    def _get_current_prompt_or_template(self):
+        """Get current prompt text or apply template with variables"""
+        prompt_text = self.prompt_text.get('1.0', 'end-1c')
+        
+        # Check if using a template
+        if self.template_var.get() != 'Custom':
+            template_id = self.template_var.get().split(' (')[-1].rstrip(')')
+            
+            # Get selected files for template
+            selected_files = self.file_tree.get_selected_files()
+            files_to_process = [f for f in self.scanned_files if f['relative_path'] in selected_files]
+            
+            try:
+                # Apply template with variables
+                prompt_text = self.template_engine.apply_template(
+                    template_id, 
+                    files_to_process, 
+                    self.template_variables
+                )
+            except Exception as e:
+                messagebox.showerror("Template Error", f"Error applying template: {str(e)}")
+                # Fall back to raw text
+                pass
+        
+        if prompt_text == self.localization.get('main_screen.prompt_placeholder'):
+            prompt_text = ""
+        
+        return prompt_text
+    
     def _on_project_type_changed(self, event=None):
         project_type = self.project_type_var.get()
         if project_type and project_type != 'Custom':
@@ -434,10 +621,8 @@ class MainWindow:
             )
             return
         
-        # Get prompt
-        prompt_text = self.prompt_text.get('1.0', 'end-1c')
-        if prompt_text == self.localization.get('main_screen.prompt_placeholder'):
-            prompt_text = ""
+        # Get prompt (with template processing)
+        prompt_text = self._get_current_prompt_or_template()
         
         # Disable UI
         self._set_ui_state(False)

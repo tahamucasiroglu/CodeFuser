@@ -46,7 +46,7 @@
     ],
     "output_settings": {
         "default_format": "txt",
-        "available_formats": ["txt", "docx", "pdf"],
+        "available_formats": ["txt", "docx", "pdf", "html"],
         "file_separator": "=== DOSYA: {filepath} ===",
         "prompt_placeholder": "[PROMPT]",
         "content_placeholder": "[İÇERİK]"

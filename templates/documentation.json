@@ -1,0 +1,15 @@
+{
+    "name": "Documentation Template",
+    "description": "Template for generating project documentation",
+    "template": "# {project_name} Documentation\n\n## Overview\nThis document provides a comprehensive overview of the {project_name} project.\n\n**Generated**: {timestamp}  \n**Total Files**: {file_count}  \n**Primary Language**: {primary_language}  \n**Project Size**: {total_size}\n\n## File Structure\n{file_structure}\n\n## Source Code Analysis\n\n{file_contents}\n\n## Dependencies\n{dependencies}\n\n## Setup Instructions\n1. Clone the repository\n2. Install dependencies\n3. Run the application\n\n## Contributing\nPlease follow the coding standards outlined in this documentation.",
+    "variables": [
+        "project_name",
+        "timestamp",
+        "file_count",
+        "primary_language",
+        "total_size",
+        "file_structure",
+        "file_contents",
+        "dependencies"
+    ]
+}

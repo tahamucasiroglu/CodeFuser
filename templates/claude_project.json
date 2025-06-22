@@ -1,0 +1,14 @@
+{
+    "name": "Claude Project Format",
+    "description": "Template optimized for Claude AI projects",
+    "template": "# {project_name} - Claude Project\n\n## Project Information\n- **Name**: {project_name}\n- **Language**: {primary_language}\n- **Files**: {file_count}\n- **Size**: {total_size}\n- **Created**: {timestamp}\n\n## Project Goals\nThis project aims to [describe your project goals here].\n\n## Architecture Overview\n{architecture_summary}\n\n## Source Code\n\n{file_contents}\n\n## Next Steps\n1. Review the code structure\n2. Identify areas for improvement\n3. Implement suggested changes\n4. Test thoroughly\n\nPlease analyze this code and provide actionable feedback.",
+    "variables": [
+        "project_name",
+        "primary_language",
+        "file_count",
+        "total_size",
+        "timestamp",
+        "architecture_summary",
+        "file_contents"
+    ]
+}

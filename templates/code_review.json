@@ -1,0 +1,12 @@
+{
+    "name": "Code Review Template",
+    "description": "Template for code review purposes",
+    "template": "# Code Review: {project_name}\n\n## Review Information\n- **Reviewer**: [Your Name]\n- **Date**: {timestamp}\n- **Files Reviewed**: {file_count}\n- **Language**: {primary_language}\n\n## Review Checklist\n- [ ] Code follows project standards\n- [ ] Functions are well-documented\n- [ ] Error handling is appropriate\n- [ ] Security considerations addressed\n- [ ] Performance is acceptable\n- [ ] Tests are included\n\n## Files Under Review\n\n{file_contents}\n\n## Review Comments\n[Add your review comments here]\n\n## Recommendations\n[Add your recommendations here]",
+    "variables": [
+        "project_name",
+        "timestamp",
+        "file_count",
+        "primary_language",
+        "file_contents"
+    ]
+}
