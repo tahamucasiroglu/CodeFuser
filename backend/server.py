@@ -352,57 +352,57 @@ Please analyze this code and provide actionable feedback."""
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeFuser Output</title>
     <style>
-        body { 
+        body {{ 
             font-family: 'Segoe UI', system-ui, sans-serif; 
             line-height: 1.6; 
             margin: 40px; 
             background: #f5f7fa;
-        }
-        .container { 
+        }}
+        .container {{ 
             max-width: 1200px; 
             margin: 0 auto; 
             background: white; 
             padding: 40px; 
             border-radius: 8px; 
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .header { 
+        }}
+        .header {{ 
             text-align: center; 
             border-bottom: 2px solid #eee; 
             padding-bottom: 20px; 
             margin-bottom: 30px;
-        }
-        .header h1 { 
+        }}
+        .header h1 {{ 
             color: #2c3e50; 
             margin: 0;
-        }
-        .meta { 
+        }}
+        .meta {{ 
             color: #7f8c8d; 
             margin-top: 10px;
-        }
-        pre { 
+        }}
+        pre {{ 
             background: #f8f9fa; 
             padding: 20px; 
             border-radius: 6px; 
             overflow-x: auto; 
             border: 1px solid #e9ecef;
-        }
-        .file-section { 
+        }}
+        .file-section {{ 
             margin: 30px 0; 
             border: 1px solid #dee2e6; 
             border-radius: 6px; 
             overflow: hidden;
-        }
-        .file-header { 
+        }}
+        .file-header {{ 
             background: #f8f9fa; 
             padding: 15px 20px; 
             font-weight: 600; 
             color: #495057;
-        }
-        .file-content { 
+        }}
+        .file-content {{ 
             padding: 20px;
-        }
-        .copy-btn {
+        }}
+        .copy-btn {{
             background: #007bff;
             color: white;
             border: none;
@@ -411,10 +411,10 @@ Please analyze this code and provide actionable feedback."""
             cursor: pointer;
             float: right;
             margin-top: -5px;
-        }
-        .copy-btn:hover {
+        }}
+        .copy-btn:hover {{
             background: #0056b3;
-        }
+        }}
     </style>
 </head>
 <body>
@@ -432,11 +432,11 @@ Please analyze this code and provide actionable feedback."""
         </div>
         
         <script>
-            function copyToClipboard(text) {
-                navigator.clipboard.writeText(text).then(() => {
+            function copyToClipboard(text) {{
+                navigator.clipboard.writeText(text).then(() => {{
                     alert('Copied to clipboard!');
-                });
-            }
+                }});
+            }}
         </script>
     </div>
 </body>
