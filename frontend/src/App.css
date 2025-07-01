@@ -1,0 +1,251 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+.container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Loading spinner */
+.spinner {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* File upload drag and drop */
+.file-drop-zone {
+  @apply border-2 border-dashed border-gray-300 rounded-lg p-8 text-center transition-colors duration-200;
+}
+
+.file-drop-zone.dragover {
+  @apply border-blue-500 bg-blue-50;
+}
+
+/* Code syntax highlighting */
+.code-block {
+  @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto;
+}
+
+.code-block pre {
+  @apply m-0;
+}
+
+/* Button variants */
+.btn-primary {
+  @apply bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200;
+}
+
+.btn-secondary {
+  @apply bg-gray-200 text-gray-800 px-4 py-2 rounded-lg font-medium hover:bg-gray-300 transition-colors duration-200;
+}
+
+.btn-success {
+  @apply bg-green-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-700 transition-colors duration-200;
+}
+
+.btn-danger {
+  @apply bg-red-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-red-700 transition-colors duration-200;
+}
+
+/* Form styles */
+.form-input {
+  @apply block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-gray-700 mb-2;
+}
+
+.form-textarea {
+  @apply block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 resize-none;
+}
+
+/* Card styles */
+.card {
+  @apply bg-white rounded-lg shadow-md p-6;
+}
+
+.card-header {
+  @apply border-b border-gray-200 pb-4 mb-4;
+}
+
+.card-title {
+  @apply text-lg font-semibold text-gray-900;
+}
+
+/* Notification styles */
+.notification {
+  @apply fixed top-4 right-4 z-50 max-w-sm rounded-lg shadow-lg;
+}
+
+.notification-success {
+  @apply bg-green-100 border border-green-400 text-green-700;
+}
+
+.notification-error {
+  @apply bg-red-100 border border-red-400 text-red-700;
+}
+
+.notification-warning {
+  @apply bg-yellow-100 border border-yellow-400 text-yellow-700;
+}
+
+.notification-info {
+  @apply bg-blue-100 border border-blue-400 text-blue-700;
+}
+
+/* File tree styles */
+.file-tree {
+  @apply bg-white border border-gray-200 rounded-lg max-h-96 overflow-y-auto;
+}
+
+.file-tree-item {
+  @apply px-4 py-2 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-center;
+}
+
+.file-tree-item.selected {
+  @apply bg-blue-50 border-blue-200;
+}
+
+.file-tree-item input[type="checkbox"] {
+  @apply mr-3;
+}
+
+/* Responsive text */
+@responsive {
+  .text-responsive {
+    @apply text-sm;
+  }
+}
+
+@screen md {
+  .text-responsive {
+    @apply text-base;
+  }
+}
+
+/* Progress bar */
+.progress-bar {
+  @apply w-full bg-gray-200 rounded-full h-2;
+}
+
+.progress-bar-fill {
+  @apply bg-blue-600 h-2 rounded-full transition-all duration-300 ease-out;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  @apply fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center p-4;
+}
+
+.modal-content {
+  @apply bg-white rounded-lg shadow-xl max-w-lg w-full max-h-screen overflow-y-auto;
+}
+
+/* Utility classes */
+.text-ellipsis {
+  @apply truncate;
+}
+
+.shadow-custom {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Animation classes */
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* File System API specific styles */
+.file-picker-button {
+  @apply bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-200 transform hover:scale-105;
+}
+
+.file-list-container {
+  @apply max-h-64 overflow-y-auto border border-gray-200 rounded-lg bg-gray-50;
+}
+
+.file-item {
+  @apply flex items-center justify-between p-3 border-b border-gray-200 last:border-b-0 hover:bg-white transition-colors;
+}
+
+.file-icon {
+  @apply w-5 h-5 mr-3 text-gray-500;
+}
+
+/* Template selector */
+.template-card {
+  @apply border border-gray-200 rounded-lg p-4 cursor-pointer transition-all duration-200 hover:border-blue-500 hover:shadow-md;
+}
+
+.template-card.selected {
+  @apply border-blue-500 bg-blue-50;
+}
+
+/* Output display */
+.output-container {
+  @apply bg-white border border-gray-200 rounded-lg;
+}
+
+.output-header {
+  @apply flex items-center justify-between p-4 border-b border-gray-200;
+}
+
+.output-content {
+  @apply p-4;
+}
+
+.copy-button {
+  @apply bg-gray-100 hover:bg-gray-200 text-gray-600 px-3 py-1 rounded text-sm transition-colors;
+}
+
+/* Dark mode support (future) */
+@media (prefers-color-scheme: dark) {
+  .dark-mode {
+    @apply bg-gray-900 text-white;
+  }
+  
+  .dark-mode .card {
+    @apply bg-gray-800 border-gray-700;
+  }
+  
+  .dark-mode .form-input {
+    @apply bg-gray-800 border-gray-600 text-white;
+  }
+}
