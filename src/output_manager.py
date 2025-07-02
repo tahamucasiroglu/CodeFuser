@@ -22,6 +22,7 @@ import re
 class OutputFile:
     file_path: str
     content: str
+    custom_prompt: str = ""  # Dosya için özel prompt
 
 
 class OutputFormatter(ABC):
@@ -64,6 +65,12 @@ class TextOutputFormatter(OutputFormatter):
                 separator = self.get_separator().format(filepath=file_data.file_path)
                 f.write(f"\n{separator}\n")
                 
+                # Write custom prompt if available
+                if file_data.custom_prompt:
+                    f.write(f"\n[CUSTOM PROMPT FOR THIS FILE]\n")
+                    f.write(f"{file_data.custom_prompt}\n")
+                    f.write("\n" + "-"*40 + "\n")
+                
                 # Write content
                 f.write(f"\n{self.get_content_placeholder()}\n")
                 f.write(file_data.content)
@@ -98,6 +105,14 @@ class DocxOutputFormatter(OutputFormatter):
         for idx, file_data in enumerate(files):
             # Add file header
             file_header = doc.add_heading(file_data.file_path, level=2)
+            
+            # Add custom prompt if available
+            if file_data.custom_prompt:
+                custom_prompt_heading = doc.add_heading("🎯 Custom Prompt for this file:", level=3)
+                custom_prompt_para = doc.add_paragraph(file_data.custom_prompt)
+                custom_prompt_para.style.font.size = Pt(10)
+                custom_prompt_para.style.font.color.rgb = RGBColor(255, 140, 0)  # Orange color
+                doc.add_paragraph("-" * 40)
             
             # Add content
             content_heading = doc.add_heading(self.get_content_placeholder(), level=3)
@@ -441,6 +456,27 @@ class HtmlOutputFormatter(OutputFormatter):
             text-decoration: underline;
         }}
         
+        .custom-prompt {{
+            background: #fff8e1;
+            border: 2px solid #ffb74d;
+            border-radius: 6px;
+            padding: 12px;
+            margin: 10px 0;
+        }}
+        
+        .custom-prompt h4 {{
+            margin: 0 0 8px 0;
+            color: #e65100;
+            font-size: 0.9rem;
+        }}
+        
+        .custom-prompt-content {{
+            color: #bf360c;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            white-space: pre-wrap;
+        }}
+        
         @media (max-width: 768px) {{
             body {{
                 padding: 10px;
@@ -563,6 +599,15 @@ class HtmlOutputFormatter(OutputFormatter):
             file_size = len(f.content.encode('utf-8'))
             line_count = len(f.content.split('\n'))
             
+            # Custom prompt section for this file
+            custom_prompt_html = ""
+            if f.custom_prompt:
+                custom_prompt_html = f"""
+            <div class="custom-prompt">
+                <h4>🎯 Custom Prompt for this file:</h4>
+                <div class="custom-prompt-content">{html.escape(f.custom_prompt)}</div>
+            </div>"""
+            
             file_html = f"""
         <div class="file-section" id="{file_id}">
             <div class="file-header">
@@ -573,6 +618,7 @@ class HtmlOutputFormatter(OutputFormatter):
                     <span>{language or 'text'}</span>
                 </div>
             </div>
+            {custom_prompt_html}
             <div class="file-content">
                 <pre><code class="language-{language or 'text'}">{html.escape(f.content)}</code></pre>
             </div>
@@ -657,7 +703,8 @@ class OutputManager:
         files: List[Dict[str, Any]],
         output_path: Path,
         format: str,
-        prompt: str = ""
+        prompt: str = "",
+        file_prompts: Dict[str, str] = None
     ) -> Path:
         
         if format not in self.formatters:
@@ -666,15 +713,21 @@ class OutputManager:
         # Convert file data to OutputFile objects
         output_files = []
         encoding = self.config_manager.get('encoding', 'utf-8')
+        file_prompts = file_prompts or {}
         
         for file_info in files:
             try:
                 with open(file_info['path'], 'r', encoding=encoding) as f:
                     content = f.read()
                 
+                # Get custom prompt for this file
+                file_path = file_info['relative_path']
+                custom_prompt = file_prompts.get(file_path, "")
+                
                 output_file = OutputFile(
-                    file_path=file_info['relative_path'],
-                    content=content
+                    file_path=file_path,
+                    content=content,
+                    custom_prompt=custom_prompt
                 )
                 output_files.append(output_file)
             except Exception as e:

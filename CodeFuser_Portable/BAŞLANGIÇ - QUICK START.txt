@@ -1,0 +1,23 @@
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                               CodeFuser v2.0.0                              ║
+║                    🚀 AI-Powered Code Aggregation Tool 🚀                   ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+🇹🇷 TÜRKÇE:
+• Detaylı kullanım kılavuzu için: OKUBENI.txt dosyasını açın
+• Başlangıç: CodeFuser.exe'ye çift tıklayın
+• Yardım: Program içindeki Help menüsünü kullanın
+
+🇬🇧 ENGLISH:  
+• For detailed usage guide: Open README.txt file
+• Quick start: Double-click CodeFuser.exe
+• Help: Use the Help menu inside the program
+
+═══════════════════════════════════════════════════════════════════════════════
+
+⚠️  İlk çalıştırmada Windows Defender uyarısı normal! "Yine de çalıştır" tıklayın.
+⚠️  Windows Defender warning on first run is normal! Click "Run anyway".
+
+═══════════════════════════════════════════════════════════════════════════════
+        

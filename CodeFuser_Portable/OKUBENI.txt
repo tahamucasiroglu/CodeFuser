@@ -1,34 +1,202 @@
-CodeFuser - Kod Birleştirme Aracı
-=================================
+
+═══════════════════════════════════════════════════════════════════════════════
+                            CodeFuser v2.0.0
+        AI-Destekli Kod Birleştirme ve Analiz Aracı / AI-Powered Code Aggregation Tool
+═══════════════════════════════════════════════════════════════════════════════
+
+🇹🇷 TÜRKÇE KILAVUZ
+═══════════════════
 
 🚀 HIZLI BAŞLANGIÇ:
-1. CodeFuser.exe'ye çift tıklayın
-2. Proje klasörünüzü seçin  
-3. Dosya türlerini ve filtreleri ayarlayın
-4. Şablon seçin veya özel prompt yazın
-5. İstediğiniz formatta dışa aktarın!
+───────────────────
+1. CodeFuser.exe dosyasına çift tıklayın
+2. Proje klasörünüzü seçin (Browse düğmesi ile)
+3. "Scan Files" düğmesine tıklayarak dosyaları tarayın
+4. İstediğiniz dosyaları seçin (checkbox'ları işaretleyin)
+5. Dosya bazında özel prompt'lar ekleyin (📄 ikonuna tıklayarak)
+6. Genel prompt yazın veya hazır şablonlardan birini seçin
+7. Çıktı formatını seçin (TXT, HTML, DOCX, PDF)
+8. "Start Process" düğmesine tıklayın!
 
-✨ ÖZELLİKLER:
-- 🎯 Akıllı Şablonlar (16x Prompt, Claude Project, vb.)
-- 🔍 Gelişmiş Filtreler (Git entegrasyonu, akıllı analiz)  
-- 📄 Çoklu Export Formatları (TXT, HTML, DOCX, PDF)
-- 🌍 Çoklu Dil Desteği (Türkçe/İngilizce)
-- 🚀 Python kurulumu gerektirmez!
+✨ YENİ ÖZELLİKLER v2.0:
+─────────────────────────
+🎯 Dosya Bazında Özel Prompt'lar
+   • Her dosyanın yanındaki 📄 ikonuna tıklayın
+   • O dosya için özel talimatlar yazın
+   • Özel prompt'u olan dosyalar 📝✨ işareti ile gösterilir
+   • "Bu dosyadaki güvenlik açıklarını analiz et" gibi spesifik istekler
+
+🧠 Akıllı Şablonlar
+   • 16x Prompt Style: Popüler AI analiz formatı
+   • Claude Project Setup: Claude Projects için hazır format
+   • Code Review: Detaylı kod inceleme şablonu
+   • Custom: Kendi prompt'unuzu yazın
+
+🔍 Gelişmiş Filtreler
+   • Git Integration: Sadece değişen dosyalar, branch karşılaştırma
+   • Smart Filters: Test dosyalarını hariç tutma, dosya boyutu filtreleme
+   • Custom Filters: Özel uzantı ve klasör filtreleri
+
+📊 Çoklu Export Formatları
+   • TXT: Basit metin formatı
+   • HTML: İnteraktif web sayfası (syntax highlighting ile)
+   • DOCX: Microsoft Word belgesi
+   • PDF: Profesyonel PDF raporu
+
+🌍 Çoklu Dil Desteği
+   • Türkçe ve İngilizce arayüz
+   • Dil değiştirme: Settings > Language
+
+💡 KULLANIM İPUÇLARI:
+────────────────────
+• Büyük projeler için: Advanced Filters kullanarak gereksiz dosyaları filtreleyin
+• AI analizi için: Dosya bazında özel prompt'lar ile spesifik sorular sorun
+• Kod incelemesi için: "Code Review" şablonunu kullanın
+• Claude kullanıyorsanız: "Claude Project" şablonunu tercih edin
+• Arama kutusu ile dosyaları hızlıca filtreleyin
+
+⚠️ ÖNEMLİ NOTLAR:
+─────────────────
+• İlk açılışta Windows Defender veya antivirus uyarısı normal
+• "Yine de çalıştır" / "Run anyway" seçeneğini tıklayın
+• Uygulama tamamen güvenlidir ve açık kaynak kodludur
+• İnternet bağlantısı gerektirmez, tamamen offline çalışır
+• Python kurulumu gerekmez, tüm bağımlılıklar dahil
 
 💻 SİSTEM GEREKSİNİMLERİ:
-- Windows 10/11 (64-bit)
-- En az 100 MB boş disk alanı
-- İnternet bağlantısı gerekmez
+──────────────────────────
+• Windows 10/11 (64-bit)
+• En az 4 GB RAM önerilen
+• 100 MB boş disk alanı
+• .NET Framework (Windows ile birlikte gelir)
 
-ℹ️ NOTLAR:
-- İlk açılışta Windows Defender uyarısı verebilir
-- "Yine de çalıştır" seçeneğini tıklayın
-- Antivirus yazılımları yanlış pozitif uyarı verebilir
+📧 DESTEK VE İLETİŞİM:
+─────────────────────
+• GitHub: https://github.com/tahamucasiroglu/CodeFuser
+• Issues: https://github.com/tahamucasiroglu/CodeFuser/issues
+• E-posta: tahamucasiroglu@gmail.com
 
-📧 DESTEK:
-- GitHub: https://github.com/yourusername/codefuser
-- E-posta: destek@codefuser.com
+═══════════════════════════════════════════════════════════════════════════════
 
-Sürüm: 2.0.0
-Lisans: MIT
-© 2024 CodeFuser - Tüm hakları saklıdır.
+🇬🇧 ENGLISH GUIDE
+═════════════════
+
+🚀 QUICK START:
+──────────────
+1. Double-click CodeFuser.exe
+2. Select your project folder (using Browse button)
+3. Click "Scan Files" to discover files
+4. Select desired files (check the checkboxes)
+5. Add file-specific prompts (click 📄 icon next to files)
+6. Write general prompt or choose from templates
+7. Select output format (TXT, HTML, DOCX, PDF)
+8. Click "Start Process"!
+
+✨ NEW FEATURES v2.0:
+────────────────────
+🎯 File-Specific Custom Prompts
+   • Click the 📄 icon next to any file
+   • Write specific instructions for that file
+   • Files with custom prompts show 📝✨ indicator
+   • Example: "Analyze security vulnerabilities in this file"
+
+🧠 Smart Templates
+   • 16x Prompt Style: Popular AI analysis format
+   • Claude Project Setup: Ready format for Claude Projects
+   • Code Review: Detailed code inspection template
+   • Custom: Write your own prompt
+
+🔍 Advanced Filters
+   • Git Integration: Only changed files, branch comparison
+   • Smart Filters: Exclude test files, file size filtering
+   • Custom Filters: Custom extension and folder filters
+
+📊 Multiple Export Formats
+   • TXT: Simple text format
+   • HTML: Interactive web page (with syntax highlighting)
+   • DOCX: Microsoft Word document
+   • PDF: Professional PDF report
+
+🌍 Multi-Language Support
+   • Turkish and English interface
+   • Change language: Settings > Language
+
+💡 USAGE TIPS:
+─────────────
+• For large projects: Use Advanced Filters to exclude unnecessary files
+• For AI analysis: Use file-specific prompts for targeted questions
+• For code review: Use the "Code Review" template
+• For Claude users: Prefer the "Claude Project" template
+• Use search box to quickly filter files
+
+⚠️ IMPORTANT NOTES:
+──────────────────
+• Windows Defender or antivirus warnings on first run are normal
+• Click "Run anyway" to proceed
+• Application is completely safe and open-source
+• No internet connection required, works completely offline
+• No Python installation needed, all dependencies included
+
+💻 SYSTEM REQUIREMENTS:
+──────────────────────
+• Windows 10/11 (64-bit)
+• Minimum 4 GB RAM recommended
+• 100 MB free disk space
+• .NET Framework (comes with Windows)
+
+📧 SUPPORT & CONTACT:
+────────────────────
+• GitHub: https://github.com/tahamucasiroglu/CodeFuser
+• Issues: https://github.com/tahamucasiroglu/CodeFuser/issues
+• E-posta: tahamucasiroglu@gmail.com
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📋 EXAMPLE WORKFLOWS / ÖRNEK KULLANIM SENARYOLARI:
+
+🎯 AI Code Analysis / AI Kod Analizi:
+1. Select Python files / Python dosyalarını seçin
+2. Use "16x Prompt" template / "16x Prompt" şablonunu kullanın
+3. Add file-specific prompts for critical files / Kritik dosyalar için özel prompt ekleyin
+4. Export as HTML for easy reading / Kolay okuma için HTML olarak export edin
+
+🔍 Code Review / Kod İnceleme:
+1. Use Git filters to see only changed files / Sadece değişen dosyaları görmek için Git filtreleri
+2. Select "Code Review" template / "Code Review" şablonunu seçin
+3. Add specific review questions per file / Dosya başına özel inceleme soruları ekleyin
+4. Export as DOCX for formal documentation / Resmi dokümantasyon için DOCX export
+
+🤖 Claude Project Setup / Claude Proje Kurulumu:
+1. Select all relevant source files / Tüm ilgili kaynak dosyaları seçin
+2. Use "Claude Project" template / "Claude Project" şablonunu kullanın
+3. Add context-specific prompts / Bağlam-özel prompt'lar ekleyin
+4. Export as TXT for Claude upload / Claude'a yüklemek için TXT export
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🆚 VERSION HISTORY / SÜRÜM GEÇMİŞİ:
+
+v2.0.0 (Current):
+• ✨ File-specific custom prompts / Dosya bazında özel prompt'lar
+• 🎨 Enhanced UI with document icons / Belge ikonları ile gelişmiş arayüz
+• 🔧 Improved template system / Gelişmiş şablon sistemi
+• 🌐 Better localization support / Daha iyi yerelleştirme desteği
+
+v1.0.0:
+• 🚀 Initial release / İlk sürüm
+• 📄 Basic file aggregation / Temel dosya birleştirme
+• 🎯 Template support / Şablon desteği
+• 🔍 Git integration / Git entegrasyonu
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📄 LICENSE / LİSANS:
+MIT License - Free to use, modify, and distribute
+MIT Lisansı - Kullanım, değiştirme ve dağıtım serbesttir
+
+© 2024 CodeFuser Team - All rights reserved
+© 2024 CodeFuser Ekibi - Tüm hakları saklıdır
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Happy Coding! / Mutlu Kodlamalar! 🚀✨

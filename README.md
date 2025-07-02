@@ -1,515 +1,536 @@
-# 🚀 CodeFuser / KodBirleştirici
+# 🚀 CodeFuser v2.0 / KodBirleştirici v2.0
 
-![image](/assets/Ornek.png)
+![CodeFuser Demo](assets/Ornek.png)
 
-**English** | [Türkçe](#-türkçe)
+**English** | [Türkçe](#-türkçe-v20)
 
 ---
 
-## **The Ultimate Code Aggregation Tool with AI Integration**
+## **The Ultimate AI-Powered Code Aggregation Tool with File-Specific Prompts**
 
-CodeFuser is a powerful application that combines project files into a single output with AI prompts, featuring advanced filtering, template systems, and multi-format export capabilities. Perfect for AI development workflows, code analysis, and documentation generation.
+CodeFuser v2.0 is a revolutionary application that combines project files into AI-ready outputs with **file-specific custom prompts**, advanced filtering, template systems, and multi-format export capabilities. Perfect for AI development workflows, code analysis, and documentation generation.
 
 <div align="center">
   <img src="assets/CodeFuser Logo.png" alt="CodeFuser Logo" width="128" height="128">
   <br>
-  <em>Your ultimate code aggregation companion</em>
+  <em>Your ultimate AI-powered code aggregation companion</em>
+  <br><br>
+  <strong>⭐ NEW in v2.0: File-Specific Custom Prompts!</strong>
 </div>
 
-![CodeFuser Demo](assets/demo.gif)
+## ✨ What's New in v2.0
 
-## ✨ Features
+### 🎯 **File-Specific Custom Prompts** (Revolutionary Feature!)
+- **Individual File Instructions**: Click the 📄 icon next to any file to add custom prompts
+- **Smart Visual Indicators**: Files with prompts show 📝✨ and highlighted colors
+- **Intelligent Color Coding**:
+  - 🟢 **Green**: Selected + Custom Prompt (Perfect!)
+  - 🟡 **Yellow**: Selected Only (Good)
+  - 🔴 **Red**: Prompt Only (Warning - unused prompt)
+- **Advanced Usage Statistics**: Track prompt usage with detailed counters
+- **Export Integration**: All formats (TXT, HTML, DOCX, PDF) include file-specific prompts
 
-### 🎯 Smart Templates
-- **16x Prompt**: Optimized for AI model interactions
-- **Cursor Rules**: IDE-specific configurations  
-- **Claude Project**: Claude AI project format
-- **Documentation**: Auto-generated documentation
-- **Code Review**: Structured code review format
-- **Custom Templates**: Create your own with variable substitution
+### 🚀 **Standalone Windows EXE** 
+- **Zero Dependencies**: Run without Python installation
+- **Single File Distribution**: 22MB portable executable
+- **Instant Deployment**: Copy to any Windows machine and run
+- **Professional Packaging**: Complete with bilingual documentation
 
-### 🔍 Advanced Filtering System
-- **Git Integration**: Filter by git status (modified, added, untracked)
-- **Smart Content Analysis**: Detect TODOs, functions, classes, potential issues
-- **File Type Detection**: Test files, config files, documentation
-- **Language-Specific**: Python, JavaScript, Web files, etc.
-- **Code Quality**: Find undocumented code, complex files, security issues
-- **Time-Based**: Recently modified files, old files
+### 🎨 **Enhanced User Experience**
+- **Improved Layout**: Better spacing between checkboxes and icons
+- **Optimized Click Detection**: Precise icon interaction areas
+- **Responsive Dialog Windows**: Fixed button positioning in all screen sizes
+- **Visual Feedback**: Real-time color updates based on file status
 
-### 📄 Multiple Export Formats
-- **TXT**: Simple text format with separators
-- **HTML**: Beautiful syntax-highlighted web pages with copy functionality
-- **DOCX**: Professional Word documents with formatting
-- **PDF**: Print-ready documents with proper styling
+## 🏆 Why Choose CodeFuser v2.0?
 
-### 🌍 Multi-Language Support
-- **Turkish (Türkçe)**: Full native support
-- **English**: Complete interface translation
-- **Extensible**: Easy to add new languages
+### 🎯 **Perfect for AI Development**
+```
+Traditional tools: "Here's my entire codebase"
+CodeFuser v2.0: "Here's my codebase with specific instructions for each critical file"
 
-### 🎨 Modern Interface
-- **Full-screen Mode**: Distraction-free workspace
-- **Smart File Tree**: Fast search and selection
-- **Progress Tracking**: Real-time operation feedback
-- **Settings Management**: Configurable preferences
+Example:
+├── main.py → "Focus on the authentication logic"
+├── api.py → "Analyze security vulnerabilities" 
+├── utils.py → "Suggest performance optimizations"
+└── config.py → "Review configuration best practices"
+```
+
+### 🔍 **Advanced Intelligence**
+- **30+ Smart Filters**: Git integration, code quality analysis, file type detection
+- **Professional Templates**: 16x Prompt, Claude Project, Code Review, Documentation
+- **Multi-Format Export**: TXT, HTML (with syntax highlighting), DOCX, PDF
+- **Bilingual Support**: Complete Turkish and English interfaces
+
+### 💼 **Enterprise Ready**
+- **Standalone Deployment**: No IT approval needed for dependencies
+- **Configurable Settings**: Customize for team workflows
+- **Professional Output**: Beautiful formatted exports for documentation
+- **Version Control Integration**: Git status-based filtering
 
 ## 🚀 Installation & Quick Start
 
-### 📥 Method 1: Standalone Application (Recommended for Beginners)
+### 📥 Method 1: Standalone Windows EXE (Recommended)
 
-**Step-by-step for complete beginners:**
+**For everyone - no technical knowledge required:**
 
-1. **Download the Program**
-   - Go to [Releases page](https://github.com/yourusername/codefuser/releases)
-   - Click on the latest version (e.g., "v1.0.0")
-   - Download `CodeFuser-Windows.zip` file
+1. **Download**
+   - Go to [Releases](https://github.com/tahamucasiroglu/CodeFuser/releases)
+   - Download `CodeFuser_Portable.zip` (latest version)
+   - Extract the ZIP file
 
-2. **Extract the Files**
-   - Right-click on the downloaded ZIP file
-   - Select "Extract All..." or "Extract Here"
-   - You'll see a folder called "CodeFuser"
+2. **Run**
+   - Open the extracted folder
+   - Double-click `CodeFuser.exe`
+   - Program starts instantly! ⚡
 
-3. **Run the Program**
-   - Open the "CodeFuser" folder
-   - Double-click on `CodeFuser.exe`
-   - The program will start immediately (no installation needed!)
+3. **First Use**
+   - Click "Browse" → Select your project folder
+   - Click "Scan Files" → Discover all code files
+   - Select files with checkboxes ☑️
+   - **NEW**: Click 📄 icons to add file-specific prompts
+   - Choose template or write custom prompt
+   - Click "Start Process" → Get your AI-ready output!
 
-4. **First Use**
-   - Click "Browse" button to select your project folder
-   - Click "Scan Files" to find all code files
-   - Choose which files you want to include (check/uncheck boxes)
-   - Add a prompt or select a template
-   - Click "Start Process" to create your output file
-
-**That's it! No technical knowledge required.**
-
-### 🔧 Method 2: VSCode Extension (For VSCode Users)
-
-**If you use Visual Studio Code:**
-
-1. **Install the Extension**
-   - Open VSCode
-   - Press `Ctrl+Shift+X` (Extensions panel)
-   - Search for "CodeFuser"
-   - Click "Install"
-
-2. **Use the Extension**
-   - Right-click any folder in VSCode Explorer
-   - Select "Quick Export Selected Files"
-   - Or press `Ctrl+Shift+P` and type "CodeFuser"
-
-### 🐍 Method 3: Python Source (For Developers)
-
-**If you have Python installed:**
+### 🔧 Method 2: Python Source (For Developers)
 
 ```bash
-# 1. Download the source code
-git clone https://github.com/yourusername/codefuser.git
+# Clone repository
+git clone https://github.com/tahamucasiroglu/CodeFuser.git
 cd codefuser
 
-# 2. Install required packages
+# Install dependencies
 pip install -r requirements.txt
 
-# 3. Run the program
+# Run application
 python main.py
-```
 
-## 📖 Usage Examples
-
-### For AI Development
-```
-1. Select your project folder
-2. Choose "16x Prompt" template
-3. Apply smart filters (exclude test files, focus on main logic)
-4. Add your specific prompt
-5. Export as HTML for easy copying
-```
-
-### For Code Review
-```
-1. Use Git filter to show only modified files
-2. Select "Code Review" template
-3. Apply quality filters to find potential issues
-4. Export as DOCX for team sharing
-```
-
-### For Documentation
-```
-1. Filter for main files and documentation
-2. Use "Documentation" template
-3. Export as HTML with syntax highlighting
-4. Share the beautiful web page
-```
-
-## 🛠️ Building from Source
-
-### Build Standalone EXE
-```bash
+# Build standalone EXE
 python build_exe.py
 ```
 
-### Build VSCode Extension
-```bash
-cd vscode-extension
-npm install
-npm run compile
-vsce package
+## 📖 Advanced Usage Examples
+
+### 🤖 AI Code Analysis Workflow
+```
+1. Select your project files
+2. Add file-specific prompts:
+   📄 main.py → "Analyze the main application flow"
+   📄 auth.py → "Review security implementations"
+   📄 utils.py → "Suggest performance improvements"
+3. Use "16x Prompt" template for AI interaction
+4. Export as HTML for easy copying to AI tools
+5. Get targeted, intelligent analysis for each file!
 ```
 
-## ⚙️ Configuration
+### 🔍 Code Review Process
+```
+1. Use Git filter → Show only modified files
+2. Select "Code Review" template
+3. Add specific review prompts:
+   📄 new_feature.py → "Check for edge cases and error handling"
+   📄 updated_api.py → "Verify backward compatibility"
+4. Export as DOCX for team distribution
+5. Comprehensive, targeted code review ready!
+```
 
-CodeFuser is highly configurable through `config/default_settings.json`:
+### 📚 Documentation Generation
+```
+1. Filter for main files and documentation
+2. Use "Documentation" template
+3. Add documentation prompts:
+   📄 core_module.py → "Generate API documentation"
+   📄 helpers.py → "Create usage examples"
+4. Export as HTML with beautiful syntax highlighting
+5. Professional documentation ready to share!
+```
 
+## ⚙️ Advanced Configuration
+
+### Project-Specific Settings (`config/user_settings.json`)
 ```json
 {
   "project_types": {
-    ".NET": [".cs", ".cshtml", ".csproj", ".json"],
-    "Python": [".py", ".pyx", ".pyi"],
-    "JavaScript": [".js", ".jsx", ".ts", ".tsx"]
+    "React": [".js", ".jsx", ".ts", ".tsx", ".css", ".scss"],
+    "Python": [".py", ".pyx", ".pyi", ".ipynb"],
+    "C#": [".cs", ".cshtml", ".csproj", ".config"]
   },
-  "ignore_folders": ["node_modules", ".git", "bin", "obj"],
-  "output_settings": {
+  "smart_filters": {
+    "exclude_tests": true,
+    "include_documentation": true,
+    "max_file_size_mb": 5
+  },
+  "output_preferences": {
     "default_format": "html",
-    "available_formats": ["txt", "docx", "pdf", "html"]
-  },
-  "interface": {
-    "fullscreen": true,
-    "theme": "modern"
+    "include_file_stats": true,
+    "syntax_highlighting": true
   }
 }
 ```
 
-## 📊 Comparison with Alternatives
+### Template Customization
+```json
+{
+  "template_name": "My Custom Template",
+  "variables": {
+    "project_name": "{{PROJECT_NAME}}",
+    "analysis_type": "{{ANALYSIS_TYPE}}"
+  },
+  "prompt": "Analyze {{PROJECT_NAME}} focusing on {{ANALYSIS_TYPE}}"
+}
+```
 
-| Feature | CodeFuser | 16x Prompt | PasteMax |
-|---------|-----------|------------|----------|
-| Templates | ✅ 5+ Built-in | ❌ Basic | ❌ None |
-| Git Integration | ✅ Full | ❌ None | ❌ None |
-| Smart Filters | ✅ 30+ Filters | ❌ Basic | ❌ Basic |
-| Export Formats | ✅ 4 Formats | ❌ Text only | ❌ Text only |
-| Multi-Language | ✅ TR/EN | ❌ EN only | ❌ EN only |
-| Advanced UI | ✅ Modern | ❌ Basic | ❌ Basic |
+## 📊 Feature Comparison
 
-## 🤝 Contributing
+| Feature | CodeFuser v2.0 | CodeFuser v1.0 | Competitors |
+|---------|----------------|----------------|-------------|
+| **File-Specific Prompts** | ✅ Revolutionary | ❌ Not Available | ❌ Not Available |
+| **Visual Color Coding** | ✅ Advanced | ❌ Basic | ❌ None |
+| **Standalone EXE** | ✅ 22MB Portable | ❌ Python Required | ❌ Various |
+| **Export Formats** | ✅ 4 Professional | ✅ 4 Basic | ❌ 1-2 Basic |
+| **Smart Filters** | ✅ 30+ Filters | ✅ 20+ Filters | ❌ Basic |
+| **Templates** | ✅ 5+ Professional | ✅ 3 Basic | ❌ None/Basic |
+| **Multi-Language** | ✅ Turkish/English | ✅ Turkish/English | ❌ English Only |
+| **Git Integration** | ✅ Full Featured | ✅ Basic | ❌ None |
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+## 🔧 Building from Source
+
+### Windows EXE Build
+```bash
+# All dependencies included automatically
+python build_exe.py
+
+# Output: CodeFuser_Portable/CodeFuser.exe (22MB)
+# Includes: Bilingual README files, all assets
+```
 
 ### Development Setup
 ```bash
-git clone https://github.com/yourusername/codefuser.git
+git clone https://github.com/tahamucasiroglu/CodeFuser.git
 cd codefuser
 pip install -r requirements.txt
+
+# Run tests
 python -m pytest tests/
+
+# Run application
+python main.py
 ```
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Inspired by 16x Prompt and PasteMax
-- Built with Python, Tkinter, and modern web technologies
-- Turkish language support for the local developer community
 
 ## 🗺️ Roadmap
 
-### 🚀 Version 1.1 (Q2 2024)
-- [ ] **Advanced Custom Filters**: Visual filter builder with drag-drop interface
-- [ ] **AI Integration**: Direct ChatGPT/Claude API integration
-- [ ] **Batch Processing**: Process multiple projects simultaneously
-- [ ] **Export Scheduling**: Automated periodic exports
-- [ ] **Cloud Storage**: Google Drive, Dropbox, OneDrive integration
+### 🎯 Version 2.1 (Next Release)
+- [ ] **Prompt Templates Library**: Shareable file-specific prompt collections
+- [ ] **Bulk Prompt Assignment**: Apply prompts to multiple files by pattern
+- [ ] **Prompt History**: Remember and reuse previous file prompts
+- [ ] **Advanced Export Options**: Custom styling and formatting
 
-### 🎯 Version 1.2 (Q3 2024)
-- [ ] **Collaborative Features**: Share templates and filters with team
-- [ ] **Project Profiles**: Save and restore project configurations
-- [ ] **Advanced Search**: Full-text search across exported files
-- [ ] **Plugin System**: Third-party extensions support
-- [ ] **Mobile Companion**: View exports on mobile devices
+### 🚀 Version 2.2 (Major Update)
+- [ ] **AI Integration**: Direct ChatGPT/Claude API with file-specific prompts
+- [ ] **Collaborative Prompts**: Share and sync prompts across team
+- [ ] **Smart Prompt Suggestions**: AI-powered prompt recommendations
+- [ ] **Workflow Automation**: Save and replay complete analysis workflows
 
-### 🔮 Version 2.0 (Q4 2024)
-- [ ] **Web Interface**: Browser-based version
-- [ ] **Real-time Collaboration**: Live editing and sharing
-- [ ] **AI-Powered Analysis**: Automatic code quality suggestions
-- [ ] **Enterprise Features**: SSO, audit logs, compliance
-- [ ] **Multi-Language Expansion**: French, German, Spanish, Japanese
+### 🔮 Version 3.0 (Future Vision)
+- [ ] **Web Interface**: Browser-based version with real-time collaboration
+- [ ] **Plugin Ecosystem**: Third-party extensions and integrations
+- [ ] **Enterprise Features**: SSO, audit logs, compliance reporting
+- [ ] **Advanced Analytics**: Code quality trends and insights
 
-### 💡 Community Requests
-- [ ] **Database Integration**: Connect to code in databases
-- [ ] **Docker Support**: Containerized deployments
-- [ ] **Jupyter Notebook**: Integration with data science workflows
-- [ ] **More IDE Extensions**: IntelliJ, Sublime Text, Atom
-- [ ] **API Access**: RESTful API for automation
+## 💡 Pro Tips
 
-**Vote for features** in our [GitHub Discussions](https://github.com/yourusername/codefuser/discussions)!
+### 🎯 **Maximizing File-Specific Prompts**
+```
+✅ DO:
+- Use specific, actionable prompts
+- Focus on file's primary purpose
+- Include context about expected output
+- Use different prompt styles for different file types
 
-## 📞 Support
+❌ DON'T:
+- Use generic prompts for all files
+- Create prompts for files you won't select
+- Make prompts too long or complex
+- Forget to check the color coding
+```
 
-- **GitHub Issues**: [Report bugs or request features](https://github.com/yourusername/codefuser/issues)
-- **Discussions**: [Community discussions](https://github.com/yourusername/codefuser/discussions)
-- **Documentation**: [Full documentation](https://github.com/yourusername/codefuser/wiki)
+### 🚀 **Efficient Workflows**
+```
+1. Start with file selection (yellow background)
+2. Add specific prompts to critical files (green background)
+3. Review red backgrounds (unused prompts)
+4. Use templates for consistent formatting
+5. Export in format that matches your workflow
+```
+
+## 🤝 Contributing
+
+We welcome contributions to make CodeFuser even better!
+
+### Development Areas
+- **File-Specific Features**: Enhanced prompt management
+- **Export Formats**: New output formats and styling
+- **Smart Filters**: Advanced code analysis capabilities
+- **Templates**: Professional prompt templates
+- **Internationalization**: Additional language support
+
+### Getting Started
+```bash
+# Fork the repository
+git clone https://github.com/tahamucasiroglu/CodeFuser.git
+cd codefuser
+
+# Create feature branch
+git checkout -b feature/amazing-new-feature
+
+# Make your changes
+# Add tests
+# Update documentation
+
+# Submit pull request
+```
+
+## 📞 Support & Community
+
+- **🐛 Bug Reports**: [GitHub Issues](https://github.com/tahamucasiroglu/CodeFuser/issues)
+- **💡 Feature Requests**: [GitHub Discussions](https://github.com/tahamucasiroglu/CodeFuser/discussions)
+- **📖 Documentation**: [Wiki](https://github.com/tahamucasiroglu/CodeFuser/wiki)
+
+## 📝 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **Inspired by**: 16x Prompt, PasteMax, and the AI development community
+- **Built with**: Python, Tkinter, PIL, ReportLab, python-docx
+- **Special thanks**: Turkish developer community for feedback and support
 
 ---
 
-**Made with ❤️ for the developer community**
+**Made with ❤️ for developers worldwide**
 
-*CodeFuser - Fuse your code, fuel your AI*
-
----
-
-# 🇹🇷 Türkçe
-
-[English](#-codefuser--kodbirleştirici) | **Türkçe**
+*CodeFuser v2.0 - Fuse your code with AI precision*
 
 ---
 
-## **Yapay Zeka Entegrasyonlu Üstün Kod Birleştirme Aracı**
+# 🇹🇷 Türkçe v2.0
 
-CodeFuser, proje dosyalarını yapay zeka komutlarıyla birlikte tek bir çıktıda birleştiren güçlü bir uygulamadır. Gelişmiş filtreleme, şablon sistemleri ve çoklu format dışa aktarma özellikleri sunar. Yapay zeka geliştirme iş akışları, kod analizi ve dokümantasyon oluşturma için mükemmeldir.
+[English](#-codefuser-v20--kodbirleştirici-v20) | **Türkçe**
+
+---
+
+## **Dosya Bazında Özel Prompt'larla Yapay Zeka Destekli Üstün Kod Birleştirme Aracı**
+
+CodeFuser v2.0, proje dosyalarını **dosya bazında özel prompt'lar**, gelişmiş filtreleme, şablon sistemleri ve çoklu format dışa aktarma özellikleriyle yapay zeka için hazır çıktılarda birleştiren devrimci bir uygulamadır. Yapay zeka geliştirme iş akışları, kod analizi ve dokümantasyon oluşturma için mükemmeldir.
 
 <div align="center">
   <img src="assets/CodeFuser Logo.png" alt="CodeFuser Logo" width="128" height="128">
   <br>
-  <em>Üstün kod birleştirme arkadaşınız</em>
+  <em>Yapay zeka destekli üstün kod birleştirme arkadaşınız</em>
+  <br><br>
+  <strong>⭐ v2.0'da YENİ: Dosya Bazında Özel Prompt'lar!</strong>
 </div>
 
-![CodeFuser Demo](assets/demo.gif)
+## ✨ v2.0'daki Yenilikler
 
-## ✨ Özellikler
+### 🎯 **Dosya Bazında Özel Prompt'lar** (Devrimci Özellik!)
+- **Bireysel Dosya Talimatları**: Herhangi bir dosyaya özel prompt eklemek için 📄 ikonuna tıklayın
+- **Akıllı Görsel Göstergeler**: Prompt'u olan dosyalar 📝✨ ve vurgulanan renklerle gösterilir
+- **Zeki Renk Kodlama**:
+  - 🟢 **Yeşil**: Seçili + Özel Prompt (Mükemmel!)
+  - 🟡 **Sarı**: Sadece Seçili (İyi)
+  - 🔴 **Kırmızı**: Sadece Prompt (Uyarı - kullanılmayan prompt)
+- **Gelişmiş Kullanım İstatistikleri**: Detaylı sayaçlarla prompt kullanımını takip edin
+- **Dışa Aktarma Entegrasyonu**: Tüm formatlar (TXT, HTML, DOCX, PDF) dosya bazında prompt'ları içerir
 
-### 🎯 Akıllı Şablonlar
-- **16x Prompt**: Yapay zeka model etkileşimleri için optimize edilmiş
-- **Cursor Rules**: IDE'ye özel konfigürasyonlar  
-- **Claude Project**: Claude AI proje formatı
-- **Documentation**: Otomatik oluşturulan dokümantasyon
-- **Code Review**: Yapılandırılmış kod inceleme formatı
-- **Özel Şablonlar**: Değişken ikameli kendi şablonlarınızı oluşturun
+### 🚀 **Bağımsız Windows EXE** 
+- **Sıfır Bağımlılık**: Python kurulumu olmadan çalışır
+- **Tek Dosya Dağıtımı**: 22MB taşınabilir çalıştırılabilir dosya
+- **Anında Dağıtım**: Herhangi bir Windows makinesine kopyalayın ve çalıştırın
+- **Profesyonel Paketleme**: İki dilli dokümantasyonla birlikte tamamlanmış
 
-### 🔍 Gelişmiş Filtreleme Sistemi
-- **Git Entegrasyonu**: Git durumuna göre filtreleme (değiştirilmiş, eklenmiş, izlenmeyen)
-- **Akıllı İçerik Analizi**: TODO'lar, fonksiyonlar, sınıflar, potansiyel sorunları tespit et
-- **Dosya Türü Tespiti**: Test dosyaları, config dosyaları, dokümantasyon
-- **Dile Özel**: Python, JavaScript, Web dosyaları, vb.
-- **Kod Kalitesi**: Dokümansız kod, karmaşık dosyalar, güvenlik sorunları bul
-- **Zamana Dayalı**: Son değiştirilen dosyalar, eski dosyalar
+### 🎨 **Gelişmiş Kullanıcı Deneyimi**
+- **Gelişmiş Düzen**: Checkbox'lar ve ikonlar arasında daha iyi boşluklar
+- **Optimize Edilmiş Tıklama Algılama**: Hassas ikon etkileşim alanları
+- **Duyarlı Dialog Pencereleri**: Tüm ekran boyutlarında sabit buton konumlandırma
+- **Görsel Geri Bildirim**: Dosya durumuna göre gerçek zamanlı renk güncellemeleri
 
-### 📄 Çoklu Dışa Aktarma Formatları
-- **TXT**: Ayırıcılı basit metin formatı
-- **HTML**: Kopyalama özellikli güzel sözdizimi vurgulamalı web sayfaları
-- **DOCX**: Formatlı profesyonel Word belgeleri
-- **PDF**: Uygun stillendirmeli yazdırıya hazır belgeler
+## 🏆 Neden CodeFuser v2.0?
 
-### 🌍 Çok Dilli Destek
-- **Türkçe**: Tam yerel destek
-- **English**: Tam arayüz çevirisi
-- **Genişletilebilir**: Yeni diller kolayca eklenebilir
+### 🎯 **Yapay Zeka Geliştirme İçin Mükemmel**
+```
+Geleneksel araçlar: "İşte tüm kod tabanım"
+CodeFuser v2.0: "İşte her kritik dosya için özel talimatlarla kod tabanım"
 
-### 🎨 Modern Arayüz
-- **Tam Ekran Modu**: Dikkat dağıtmayan çalışma alanı
-- **Akıllı Dosya Ağacı**: Hızlı arama ve seçim
-- **İlerleme Takibi**: Gerçek zamanlı işlem geri bildirimi
-- **Ayar Yönetimi**: Yapılandırılabilir tercihler
+Örnek:
+├── main.py → "Kimlik doğrulama mantığına odaklan"
+├── api.py → "Güvenlik açıklarını analiz et" 
+├── utils.py → "Performans optimizasyonları öner"
+└── config.py → "Konfigürasyon en iyi uygulamalarını incele"
+```
+
+### 🔍 **Gelişmiş Zeka**
+- **30+ Akıllı Filtre**: Git entegrasyonu, kod kalitesi analizi, dosya türü tespiti
+- **Profesyonel Şablonlar**: 16x Prompt, Claude Project, Code Review, Documentation
+- **Çoklu Format Dışa Aktarım**: TXT, HTML (sözdizimi vurgulamalı), DOCX, PDF
+- **İki Dilli Destek**: Tam Türkçe ve İngilizce arayüzler
+
+### 💼 **Kurumsal Hazır**
+- **Bağımsız Dağıtım**: Bağımlılıklar için IT onayı gerektirmez
+- **Yapılandırılabilir Ayarlar**: Takım iş akışları için özelleştirin
+- **Profesyonel Çıktı**: Dokümantasyon için güzel formatlı dışa aktarmalar
+- **Versiyon Kontrol Entegrasyonu**: Git durumu tabanlı filtreleme
 
 ## 🚀 Kurulum ve Hızlı Başlangıç
 
-### 📥 Yöntem 1: Bağımsız Uygulama (Yeni Başlayanlar İçin Önerilen)
+### 📥 Yöntem 1: Bağımsız Windows EXE (Önerilen)
 
-**Hiç bilmeyenler için adım adım:**
+**Herkes için - teknik bilgi gerektirmez:**
 
-1. **Programı İndir**
-   - [Sürümler sayfasına](https://github.com/yourusername/codefuser/releases) git
-   - En son sürüme tıkla (örn. "v1.0.0")
-   - `CodeFuser-Windows.zip` dosyasını indir
+1. **İndirin**
+   - [Sürümler](https://github.com/tahamucasiroglu/CodeFuser/releases) sayfasına gidin
+   - `CodeFuser_Portable.zip` dosyasını indirin (en son versiyon)
+   - ZIP dosyasını çıkartın
 
-2. **Dosyaları Çıkart**
-   - İndirilen ZIP dosyasına sağ tıkla
-   - "Tümünü Çıkart..." veya "Buraya Çıkart" seç
-   - "CodeFuser" adında bir klasör göreceksin
+2. **Çalıştırın**
+   - Çıkartılan klasörü açın
+   - `CodeFuser.exe` dosyasına çift tıklayın
+   - Program anında başlar! ⚡
 
-3. **Programı Çalıştır**
-   - "CodeFuser" klasörünü aç
-   - `CodeFuser.exe` dosyasına çift tıkla
-   - Program hemen başlayacak (kurulum gerektirmez!)
+3. **İlk Kullanım**
+   - "Gözat" → Proje klasörünüzü seçin
+   - "Dosyaları Tara" → Tüm kod dosyalarını keşfedin
+   - Checkbox'larla dosyaları seçin ☑️
+   - **YENİ**: Dosya bazında prompt eklemek için 📄 ikonlarına tıklayın
+   - Şablon seçin veya özel prompt yazın
+   - "İşlemi Başlat" → Yapay zeka için hazır çıktınızı alın!
 
-4. **İlk Kullanım**
-   - Proje klasörünü seçmek için "Gözat" düğmesine tıkla
-   - Tüm kod dosyalarını bulmak için "Dosyaları Tara" tıkla
-   - Hangi dosyaları dahil etmek istediğini seç (kutuları işaretle/işaretsiz bırak)
-   - Bir komut ekle veya şablon seç
-   - Çıktı dosyanı oluşturmak için "İşlemi Başlat" tıkla
-
-**Bu kadar! Teknik bilgi gerektirmez.**
-
-### 🔧 Yöntem 2: VSCode Eklentisi (VSCode Kullanıcıları İçin)
-
-**Eğer Visual Studio Code kullanıyorsan:**
-
-1. **Eklentiyi Kur**
-   - VSCode'u aç
-   - `Ctrl+Shift+X` bas (Eklentiler paneli)
-   - "CodeFuser" ara
-   - "Install" (Kur) tıkla
-
-2. **Eklentiyi Kullan**
-   - VSCode Explorer'da herhangi bir klasöre sağ tıkla
-   - "Quick Export Selected Files" (Seçili Dosyaları Hızlı Dışa Aktar) seç
-   - Veya `Ctrl+Shift+P` bas ve "CodeFuser" yaz
-
-### 🐍 Yöntem 3: Python Kaynağı (Geliştiriciler İçin)
-
-**Eğer Python yüklüyse:**
+### 🔧 Yöntem 2: Python Kaynağı (Geliştiriciler İçin)
 
 ```bash
-# 1. Kaynak kodu indir
-git clone https://github.com/yourusername/codefuser.git
+# Repository'yi klonlayın
+git clone https://github.com/tahamucasiroglu/CodeFuser.git
 cd codefuser
 
-# 2. Gerekli paketleri kur
+# Bağımlılıkları kurun
 pip install -r requirements.txt
 
-# 3. Programı çalıştır
+# Uygulamayı çalıştırın
 python main.py
+
+# Bağımsız EXE derleyin
+python build_exe.py
 ```
 
-## 📖 Kullanım Örnekleri
+## 📖 Gelişmiş Kullanım Örnekleri
 
-### Yapay Zeka Geliştirme İçin
+### 🤖 Yapay Zeka Kod Analizi İş Akışı
 ```
-1. Proje klasörünü seç
-2. "16x Prompt" şablonunu seç
-3. Akıllı filtreler uygula (test dosyalarını hariç tut, ana mantığa odaklan)
-4. Özel komutunu ekle
-5. Kolay kopyalama için HTML olarak dışa aktar
-```
-
-### Kod İncelemesi İçin
-```
-1. Sadece değiştirilmiş dosyaları göstermek için Git filtresi kullan
-2. "Code Review" şablonunu seç
-3. Potansiyel sorunları bulmak için kalite filtrelerini uygula
-4. Takım paylaşımı için DOCX olarak dışa aktar
+1. Proje dosyalarınızı seçin
+2. Dosya bazında prompt'lar ekleyin:
+   📄 main.py → "Ana uygulama akışını analiz et"
+   📄 auth.py → "Güvenlik implementasyonlarını incele"
+   📄 utils.py → "Performans iyileştirmeleri öner"
+3. Yapay zeka etkileşimi için "16x Prompt" şablonunu kullanın
+4. Yapay zeka araçlarına kolay kopyalama için HTML olarak dışa aktarın
+5. Her dosya için hedefli, zeki analiz alın!
 ```
 
-### Dokümantasyon İçin
+### 🔍 Kod İnceleme Süreci
 ```
-1. Ana dosyalar ve dokümantasyon için filtrele
-2. "Documentation" şablonunu kullan
-3. Sözdizimi vurgulamalı HTML olarak dışa aktar
-4. Güzel web sayfasını paylaş
+1. Git filtresi kullanın → Sadece değiştirilmiş dosyaları gösterin
+2. "Code Review" şablonunu seçin
+3. Özel inceleme prompt'ları ekleyin:
+   📄 new_feature.py → "Uç durumları ve hata işlemeyi kontrol et"
+   📄 updated_api.py → "Geriye dönük uyumluluğu doğrula"
+4. Takım dağıtımı için DOCX olarak dışa aktarın
+5. Kapsamlı, hedefli kod incelemesi hazır!
 ```
 
-## ⚙️ Yapılandırma
+### 📚 Dokümantasyon Oluşturma
+```
+1. Ana dosyalar ve dokümantasyon için filtreleyin
+2. "Documentation" şablonunu kullanın
+3. Dokümantasyon prompt'ları ekleyin:
+   📄 core_module.py → "API dokümantasyonu oluştur"
+   📄 helpers.py → "Kullanım örnekleri yarat"
+4. Güzel sözdizimi vurgulamalı HTML olarak dışa aktarın
+5. Paylaşıma hazır profesyonel dokümantasyon!
+```
 
-CodeFuser, `config/default_settings.json` aracılığıyla oldukça yapılandırılabilir:
+## ⚙️ Gelişmiş Yapılandırma
 
+### Projeye Özel Ayarlar (`config/user_settings.json`)
 ```json
 {
   "project_types": {
-    ".NET": [".cs", ".cshtml", ".csproj", ".json"],
-    "Python": [".py", ".pyx", ".pyi"],
-    "JavaScript": [".js", ".jsx", ".ts", ".tsx"]
+    "React": [".js", ".jsx", ".ts", ".tsx", ".css", ".scss"],
+    "Python": [".py", ".pyx", ".pyi", ".ipynb"],
+    "C#": [".cs", ".cshtml", ".csproj", ".config"]
   },
-  "ignore_folders": ["node_modules", ".git", "bin", "obj"],
-  "output_settings": {
+  "smart_filters": {
+    "exclude_tests": true,
+    "include_documentation": true,
+    "max_file_size_mb": 5
+  },
+  "output_preferences": {
     "default_format": "html",
-    "available_formats": ["txt", "docx", "pdf", "html"]
-  },
-  "interface": {
-    "fullscreen": true,
-    "theme": "modern"
+    "include_file_stats": true,
+    "syntax_highlighting": true
   }
 }
 ```
 
-## 📊 Alternatiflerle Karşılaştırma
+## 🗺️ Yol Haritası
 
-| Özellik | CodeFuser | 16x Prompt | PasteMax |
-|---------|-----------|------------|----------|
-| Şablonlar | ✅ 5+ Yerleşik | ❌ Temel | ❌ Yok |
-| Git Entegrasyonu | ✅ Tam | ❌ Yok | ❌ Yok |
-| Akıllı Filtreler | ✅ 30+ Filtre | ❌ Temel | ❌ Temel |
-| Dışa Aktarma Formatları | ✅ 4 Format | ❌ Sadece Metin | ❌ Sadece Metin |
-| Çok Dilli | ✅ TR/EN | ❌ Sadece EN | ❌ Sadece EN |
-| Gelişmiş Arayüz | ✅ Modern | ❌ Temel | ❌ Temel |
+### 🎯 Versiyon 2.1 (Sonraki Sürüm)
+- [ ] **Prompt Şablonları Kütüphanesi**: Paylaşılabilir dosya bazında prompt koleksiyonları
+- [ ] **Toplu Prompt Atama**: Desene göre birden fazla dosyaya prompt uygula
+- [ ] **Prompt Geçmişi**: Önceki dosya prompt'larını hatırla ve yeniden kullan
+- [ ] **Gelişmiş Dışa Aktarma Seçenekleri**: Özel stillendirme ve formatlama
 
-## 🛠️ Kaynak Koddan Derleme
+### 🚀 Versiyon 2.2 (Büyük Güncelleme)
+- [ ] **Yapay Zeka Entegrasyonu**: Dosya bazında prompt'larla doğrudan ChatGPT/Claude API
+- [ ] **İşbirlikçi Prompt'lar**: Takım genelinde prompt paylaş ve senkronize et
+- [ ] **Akıllı Prompt Önerileri**: Yapay zeka destekli prompt tavsiyeleri
+- [ ] **İş Akışı Otomasyonu**: Tam analiz iş akışlarını kaydet ve tekrarla
 
-### Bağımsız EXE Derle
-```bash
-python build_exe.py
+## 💡 Pro İpuçları
+
+### 🎯 **Dosya Bazında Prompt'ları Maksimuma Çıkarma**
+```
+✅ YAPIN:
+- Spesifik, uygulanabilir prompt'lar kullanın
+- Dosyanın birincil amacına odaklanın
+- Beklenen çıktı hakkında bağlam ekleyin
+- Farklı dosya türleri için farklı prompt stilleri kullanın
+
+❌ YAPMAYIN:
+- Tüm dosyalar için genel prompt'lar kullanmayın
+- Seçmeyeceğiniz dosyalar için prompt oluşturmayın
+- Prompt'ları çok uzun veya karmaşık yapmayın
+- Renk kodlamayı kontrol etmeyi unutmayın
 ```
 
-### VSCode Eklentisi Derle
-```bash
-cd vscode-extension
-npm install
-npm run compile
-vsce package
-```
+## 📞 Destek ve Topluluk
 
-## 🤝 Katkıda Bulunma
-
-Katkılarınızı memnuniyetle karşılıyoruz! Lütfen rehber için [CONTRIBUTING.md](CONTRIBUTING.md) dosyasına bakın.
-
-### Geliştirme Kurulumu
-```bash
-git clone https://github.com/yourusername/codefuser.git
-cd codefuser
-pip install -r requirements.txt
-python -m pytest tests/
-```
+- **🐛 Hata Raporları**: [GitHub Issues](https://github.com/tahamucasiroglu/CodeFuser/issues)
+- **💡 Özellik İstekleri**: [GitHub Discussions](https://github.com/tahamucasiroglu/CodeFuser/discussions)
+- **📖 Dokümantasyon**: [Wiki](https://github.com/tahamucasiroglu/CodeFuser/wiki)
 
 ## 📝 Lisans
 
-Bu proje MIT Lisansı altında lisanslanmıştır - detaylar için [LICENSE](LICENSE) dosyasına bakın.
+MIT Lisansı - detaylar için [LICENSE](LICENSE) dosyasına bakın.
 
 ## 🙏 Teşekkürler
 
-- 16x Prompt ve PasteMax'ten ilham alınmıştır
-- Python, Tkinter ve modern web teknolojileri ile geliştirilmiştir
-- Yerel geliştirici topluluğu için Türkçe dil desteği
-
-## 🗺️ Yol Haritası
-
-### 🚀 Versiyon 1.1 (2024 Q2)
-- [ ] **Gelişmiş Özel Filtreler**: Sürükle-bırak arayüzü ile görsel filtre oluşturucu
-- [ ] **Yapay Zeka Entegrasyonu**: Doğrudan ChatGPT/Claude API entegrasyonu
-- [ ] **Toplu İşleme**: Birden fazla projeyi eş zamanlı işleme
-- [ ] **Dışa Aktarma Zamanlaması**: Otomatik periyodik dışa aktarmalar
-- [ ] **Bulut Depolama**: Google Drive, Dropbox, OneDrive entegrasyonu
-
-### 🎯 Versiyon 1.2 (2024 Q3)
-- [ ] **İşbirliği Özellikleri**: Takımla şablon ve filtre paylaşımı
-- [ ] **Proje Profilleri**: Proje konfigürasyonlarını kaydet ve geri yükle
-- [ ] **Gelişmiş Arama**: Dışa aktarılan dosyalarda tam metin arama
-- [ ] **Eklenti Sistemi**: Üçüncü taraf uzantı desteği
-- [ ] **Mobil Companion**: Mobil cihazlarda dışa aktarılanları görüntüleme
-
-### 🔮 Versiyon 2.0 (2024 Q4)
-- [ ] **Web Arayüzü**: Tarayıcı tabanlı versiyon
-- [ ] **Gerçek Zamanlı İşbirliği**: Canlı düzenleme ve paylaşım
-- [ ] **Yapay Zeka Destekli Analiz**: Otomatik kod kalitesi önerileri
-- [ ] **Kurumsal Özellikler**: SSO, denetim logları, uyumluluk
-- [ ] **Çoklu Dil Genişletmesi**: Fransızca, Almanca, İspanyolca, Japonca
-
-### 💡 Topluluk İstekleri
-- [ ] **Veritabanı Entegrasyonu**: Veritabanlarındaki kodlara bağlantı
-- [ ] **Docker Desteği**: Konteynerleştirilmiş dağıtımlar
-- [ ] **Jupyter Notebook**: Veri bilimi iş akışları ile entegrasyon
-- [ ] **Daha Fazla IDE Uzantısı**: IntelliJ, Sublime Text, Atom
-- [ ] **API Erişimi**: Otomasyon için RESTful API
-
-**Özellikler için oy verin**: [GitHub Tartışmalarımızda](https://github.com/yourusername/codefuser/discussions)!
-
-## 📞 Destek
-
-- **GitHub Sorunları**: [Hata bildir veya özellik iste](https://github.com/yourusername/codefuser/issues)
-- **Tartışmalar**: [Topluluk tartışmaları](https://github.com/yourusername/codefuser/discussions)
-- **Dokümantasyon**: [Tam dokümantasyon](https://github.com/yourusername/codefuser/wiki)
+- **İlham alınan**: 16x Prompt, PasteMax ve yapay zeka geliştirme topluluğu
+- **Geliştirildiği teknolojiler**: Python, Tkinter, PIL, ReportLab, python-docx
+- **Özel teşekkür**: Geri bildirim ve destekleri için Türk geliştirici topluluğuna
 
 ---
 
-**Geliştirici topluluğu için ❤️ ile yapıldı**
+**Dünya çapındaki geliştiriciler için ❤️ ile yapıldı**
 
-*CodeFuser - Kodunu birleştir, yapay zekânı besle*
+*CodeFuser v2.0 - Kodunuzu yapay zeka hassasiyetiyle birleştirin*

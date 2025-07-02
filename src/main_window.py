@@ -320,7 +320,11 @@ class MainWindow:
         file_selection_frame.pack(fill=tk.BOTH, expand=True, pady=(0, 10))
         
         # File tree widget
-        self.file_tree = FileTreeWidget(file_selection_frame, bg='white')
+        self.file_tree = FileTreeWidget(
+            file_selection_frame, 
+            localization_manager=self.localization,
+            bg='white'
+        )
         self.file_tree.pack(fill=tk.BOTH, expand=True, padx=10, pady=(5, 10))
         self.file_tree.on_selection_change = self._on_file_selection_change
         
@@ -1056,11 +1060,15 @@ class MainWindow:
             output_filename = f"codefuser_output.{output_format}"
             output_path = self.selected_folder / output_filename
             
+            # Get file prompts from file tree
+            file_prompts = self.file_tree.get_file_prompts()
+            
             output_path = self.output_manager.create_output(
                 files,
                 output_path,
                 output_format,
-                prompt
+                prompt,
+                file_prompts
             )
             
             # Complete

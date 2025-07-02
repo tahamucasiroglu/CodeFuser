@@ -4,14 +4,18 @@ from pathlib import Path
 from typing import Dict, List, Set, Optional, Callable
 import os
 
+from file_prompt_dialog import show_file_prompt_dialog
+
 
 class FileTreeWidget(tk.Frame):
-    def __init__(self, parent, **kwargs):
+    def __init__(self, parent, localization_manager=None, **kwargs):
         super().__init__(parent, **kwargs)
         
         self.selected_files: Set[str] = set()
         self.all_files: List[Dict[str, any]] = []
         self.filtered_files: List[Dict[str, any]] = []
+        self.file_prompts: Dict[str, str] = {}  # file_path -> custom prompt
+        self.localization = localization_manager
         self.on_selection_change: Optional[Callable[[int], None]] = None
         
         # Virtual scrolling variables
@@ -166,18 +170,77 @@ class FileTreeWidget(tk.Frame):
             file_info = self.filtered_files[index]
             file_path = file_info['relative_path']
             
-            # Toggle selection
-            if file_path in self.selected_files:
-                self.selected_files.remove(file_path)
-            else:
-                self.selected_files.add(file_path)
+            # Get the text width to determine click position
+            line_text = self.listbox.get(index)
             
-            self._update_display()
-            self._update_counter()
+            # Calculate positions for new layout: [checkbox]   [doc_icon]  [indent][file_icon] [filename]
+            # Checkbox ~2 chars + 3 spaces + doc icon ~2-4 chars + 2 spaces = roughly 20-60 pixels for icon area
+            click_x = event.x
+            
+            # Check if click is on document icon area and line contains doc icon
+            # Icon area is now further right due to extra spacing
+            if 25 <= click_x <= 85 and ("📄" in line_text or "📝✨" in line_text):
+                self._show_file_prompt_dialog(file_path)
+            else:
+                # Regular selection toggle
+                if file_path in self.selected_files:
+                    self.selected_files.remove(file_path)
+                else:
+                    self.selected_files.add(file_path)
+                
+                self._update_display()
+                self._update_counter()
     
     def _on_listbox_double_click(self, event):
         # Double click could be used for other actions
         pass
+    
+    def _show_file_prompt_dialog(self, file_path: str):
+        """Dosya için özel prompt dialog'unu göster"""
+        current_prompt = self.file_prompts.get(file_path, "")
+        
+        result = show_file_prompt_dialog(
+            self.winfo_toplevel(),
+            file_path,
+            current_prompt,
+            self.localization
+        )
+        
+        if result is not None:  # None means cancelled
+            if result.strip():
+                self.file_prompts[file_path] = result.strip()
+            else:
+                # Empty prompt means remove custom prompt
+                if file_path in self.file_prompts:
+                    del self.file_prompts[file_path]
+            
+            # Refresh display to show updated icon
+            self._update_display()
+    
+    def get_file_prompts(self) -> Dict[str, str]:
+        """Dosya promptlarını döndür"""
+        return self.file_prompts.copy()
+    
+    def set_file_prompts(self, prompts: Dict[str, str]):
+        """Dosya promptlarını ayarla"""
+        self.file_prompts = prompts.copy()
+        self._update_display()
+    
+    def clear_file_prompts(self):
+        """Tüm dosya promptlarını temizle"""
+        self.file_prompts.clear()
+        self._update_display()
+    
+    def get_files_with_prompts(self) -> List[Dict[str, str]]:
+        """Özel promptu olan dosyaları döndür"""
+        result = []
+        for file_path, prompt in self.file_prompts.items():
+            if prompt.strip():
+                result.append({
+                    'file_path': file_path,
+                    'prompt': prompt
+                })
+        return result
     
     def populate_tree(self, files: List[Dict[str, any]]):
         """Populate the tree with files"""
@@ -230,13 +293,46 @@ class FileTreeWidget(tk.Frame):
             depth = len(Path(file_path).parts) - 1
             indent = "  " * depth
             
-            display_text = f"{selected_marker} {indent}{icon} {file_name}"
+            # Document icon for custom prompt - put it right after checkbox
+            has_custom_prompt = file_path in self.file_prompts and self.file_prompts[file_path].strip()
+            if has_custom_prompt:
+                doc_icon = "📝✨"  # Highlighted document icon with sparkle
+            else:
+                doc_icon = "📄"    # Regular document icon
+            
+            display_text = f"{selected_marker}   {doc_icon}  {indent}{icon} {file_name}"
             
             self.listbox.insert(tk.END, display_text)
             
-            # Color selected items
-            if file_path in self.selected_files:
-                self.listbox.itemconfig(tk.END, {'bg': '#e3f2fd'})
+            # Apply color coding based on selection and prompt status
+            self._apply_row_color(file_path)
+    
+    def _apply_row_color(self, file_path: str):
+        """Dosya durumuna göre satır rengini uygula"""
+        is_selected = file_path in self.selected_files
+        has_custom_prompt = file_path in self.file_prompts and self.file_prompts[file_path].strip()
+        
+        # Renk mantığı:
+        # - Seçili + Özel prompt = Yeşil (ideal durum)
+        # - Sadece seçili = Sarı (normal durum)  
+        # - Sadece özel prompt = Kırmızı (uyarı - prompt var ama kullanılmayacak)
+        # - Hiçbiri = Varsayılan (beyaz/transparan)
+        
+        if is_selected and has_custom_prompt:
+            # Yeşil: Seçili ve özel promptu olan dosyalar
+            bg_color = '#d4f5d4'  # Daha koyu yeşil
+        elif is_selected and not has_custom_prompt:
+            # Sarı: Sadece seçili dosyalar
+            bg_color = '#fff3a0'  # Daha koyu sarı
+        elif not is_selected and has_custom_prompt:
+            # Kırmızı: Prompt var ama seçili değil (uyarı)
+            bg_color = '#ffcccc'  # Daha koyu kırmızı
+        else:
+            # Varsayılan: Seçili değil ve prompt yok
+            bg_color = '#f8f9fa'  # Varsayılan listbox rengi
+        
+        # Son eklenen öğeye rengi uygula
+        self.listbox.itemconfig(tk.END, {'bg': bg_color})
     
     def _get_file_icon(self, extension: str) -> str:
         """Get file icon based on extension"""
@@ -250,10 +346,24 @@ class FileTreeWidget(tk.Frame):
         return icons.get(extension, '📄')
     
     def _update_counter(self):
-        """Update the file counter"""
+        """Update the file counter with color coding info"""
         total = len(self.all_files)
         selected = len(self.selected_files)
-        self.counter_label.config(text=f"{selected} / {total} files selected")
+        
+        # Count files with custom prompts
+        files_with_prompts = len([f for f in self.file_prompts.values() if f.strip()])
+        prompts_on_selected = len([path for path in self.selected_files 
+                                  if path in self.file_prompts and self.file_prompts[path].strip()])
+        prompts_on_unselected = files_with_prompts - prompts_on_selected
+        
+        # Create detailed counter text
+        counter_text = f"{selected} / {total} files selected"
+        if files_with_prompts > 0:
+            counter_text += f" • {prompts_on_selected} with prompts"
+            if prompts_on_unselected > 0:
+                counter_text += f" • ⚠️ {prompts_on_unselected} unused prompts"
+        
+        self.counter_label.config(text=counter_text)
         
         if self.on_selection_change:
             self.on_selection_change(selected)
