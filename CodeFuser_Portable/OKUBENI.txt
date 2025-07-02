@@ -1,0 +1,34 @@
+CodeFuser - Kod Birleştirme Aracı
+=================================
+
+🚀 HIZLI BAŞLANGIÇ:
+1. CodeFuser.exe'ye çift tıklayın
+2. Proje klasörünüzü seçin  
+3. Dosya türlerini ve filtreleri ayarlayın
+4. Şablon seçin veya özel prompt yazın
+5. İstediğiniz formatta dışa aktarın!
+
+✨ ÖZELLİKLER:
+- 🎯 Akıllı Şablonlar (16x Prompt, Claude Project, vb.)
+- 🔍 Gelişmiş Filtreler (Git entegrasyonu, akıllı analiz)  
+- 📄 Çoklu Export Formatları (TXT, HTML, DOCX, PDF)
+- 🌍 Çoklu Dil Desteği (Türkçe/İngilizce)
+- 🚀 Python kurulumu gerektirmez!
+
+💻 SİSTEM GEREKSİNİMLERİ:
+- Windows 10/11 (64-bit)
+- En az 100 MB boş disk alanı
+- İnternet bağlantısı gerekmez
+
+ℹ️ NOTLAR:
+- İlk açılışta Windows Defender uyarısı verebilir
+- "Yine de çalıştır" seçeneğini tıklayın
+- Antivirus yazılımları yanlış pozitif uyarı verebilir
+
+📧 DESTEK:
+- GitHub: https://github.com/yourusername/codefuser
+- E-posta: destek@codefuser.com
+
+Sürüm: 2.0.0
+Lisans: MIT
+© 2024 CodeFuser - Tüm hakları saklıdır.

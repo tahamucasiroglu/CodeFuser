@@ -3,12 +3,12 @@ from pathlib import Path
 from typing import Dict, Any, Optional
 import re
 
+from utils import get_locale_path
+
 
 class LocalizationManager:
     def __init__(self, config_manager):
         self.config_manager = config_manager
-        self.base_dir = Path(__file__).parent.parent
-        self.locales_dir = self.base_dir / "locales"
         self.current_language = self.config_manager.get_language()
         self.translations = self._load_translations()
         self.fallback_language = "en"
@@ -18,15 +18,86 @@ class LocalizationManager:
         if language is None:
             language = self.current_language
         
-        locale_file = self.locales_dir / f"{language}.json"
-        
-        if locale_file.exists():
-            try:
-                with open(locale_file, 'r', encoding='utf-8') as f:
-                    return json.load(f)
-            except (json.JSONDecodeError, IOError):
-                return {}
-        return {}
+        try:
+            locale_file = get_locale_path(f"{language}.json")
+            with open(locale_file, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError, IOError) as e:
+            print(f"⚠️ Locale loading error for {language}: {e}")
+            return self._get_fallback_translations(language)
+    
+    def _get_fallback_translations(self, language: str) -> Dict[str, Any]:
+        """Fallback translations when locale files are not found"""
+        if language == 'tr':
+            return {
+                "language_name": "Türkçe",
+                "app_title": "CodeFuser - Kod Birleştirme Aracı",
+                "select_folder": "Klasör Seç",
+                "scan_files": "Dosyaları Tara",
+                "export": "Dışa Aktar",
+                "settings": "Ayarlar",
+                "about": "Hakkında",
+                "file": "Dosya",
+                "edit": "Düzenle",
+                "view": "Görünüm",
+                "help": "Yardım",
+                "project_folder": "Proje Klasörü:",
+                "file_types": "Dosya Türleri:",
+                "filters": "Filtreler:",
+                "output_format": "Çıktı Formatı:",
+                "prompt_template": "Prompt Şablonu:",
+                "custom_prompt": "Özel Prompt:",
+                "export_button": "Dışa Aktar",
+                "cancel": "İptal",
+                "ok": "Tamam",
+                "error": "Hata",
+                "warning": "Uyarı",
+                "info": "Bilgi",
+                "success": "Başarılı",
+                "loading": "Yükleniyor...",
+                "scanning": "Taranıyor...",
+                "exporting": "Dışa aktarılıyor...",
+                "done": "Tamamlandı",
+                "no_folder_selected": "Klasör seçilmedi",
+                "no_files_found": "Dosya bulunamadı",
+                "export_successful": "Dışa aktarma başarılı",
+                "export_failed": "Dışa aktarma başarısız"
+            }
+        else:  # English
+            return {
+                "language_name": "English",
+                "app_title": "CodeFuser - Code Aggregation Tool",
+                "select_folder": "Select Folder",
+                "scan_files": "Scan Files",
+                "export": "Export",
+                "settings": "Settings",
+                "about": "About",
+                "file": "File",
+                "edit": "Edit",
+                "view": "View",
+                "help": "Help",
+                "project_folder": "Project Folder:",
+                "file_types": "File Types:",
+                "filters": "Filters:",
+                "output_format": "Output Format:",
+                "prompt_template": "Prompt Template:",
+                "custom_prompt": "Custom Prompt:",
+                "export_button": "Export",
+                "cancel": "Cancel",
+                "ok": "OK",
+                "error": "Error",
+                "warning": "Warning",
+                "info": "Info",
+                "success": "Success",
+                "loading": "Loading...",
+                "scanning": "Scanning...",
+                "exporting": "Exporting...",
+                "done": "Done",
+                "no_folder_selected": "No folder selected",
+                "no_files_found": "No files found",
+                "export_successful": "Export successful",
+                "export_failed": "Export failed"
+            }
     
     def get(self, key: str, **kwargs) -> str:
         keys = key.split('.')
@@ -56,23 +127,34 @@ class LocalizationManager:
         return current if isinstance(current, str) else None
     
     def set_language(self, language: str) -> bool:
-        locale_file = self.locales_dir / f"{language}.json"
-        
-        if locale_file.exists():
+        try:
+            locale_file = get_locale_path(f"{language}.json")
+            # Test if file exists by trying to open it
+            with open(locale_file, 'r', encoding='utf-8') as f:
+                pass
+            
             self.current_language = language
             self.translations = self._load_translations()
             self.config_manager.set_language(language)
             return True
-        return False
+        except FileNotFoundError:
+            return False
     
     def get_available_languages(self) -> Dict[str, str]:
         languages = {}
-        for locale_file in self.locales_dir.glob("*.json"):
-            lang_code = locale_file.stem
-            
-            translations = self._load_translations(lang_code)
-            lang_name = translations.get('language_name', lang_code.upper())
-            languages[lang_code] = lang_name
+        # Default languages when files not found
+        default_languages = {
+            'tr': 'Türkçe',
+            'en': 'English'
+        }
+        
+        for lang_code in default_languages:
+            try:
+                translations = self._load_translations(lang_code)
+                lang_name = translations.get('language_name', default_languages[lang_code])
+                languages[lang_code] = lang_name
+            except:
+                languages[lang_code] = default_languages[lang_code]
         
         return languages
     

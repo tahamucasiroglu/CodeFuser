@@ -5,22 +5,20 @@ from typing import Dict, List, Any, Optional
 from datetime import datetime
 import os
 
+from utils import get_template_path, ensure_dir
+
 
 class TemplateEngine:
     def __init__(self, config_manager):
         self.config_manager = config_manager
-        self.base_dir = Path(__file__).parent.parent
-        self.templates_dir = self.base_dir / "templates"
-        self.custom_templates_dir = self.base_dir / "custom_templates"
-        
-        # Create directories if they don't exist
-        self.templates_dir.mkdir(exist_ok=True)
-        self.custom_templates_dir.mkdir(exist_ok=True)
+        # Create user templates directory
+        self.custom_templates_dir = ensure_dir(Path.home() / '.codefuser' / 'templates')
         
         self._create_default_templates()
     
     def _create_default_templates(self):
         """Create default template files if they don't exist"""
+        # Sadece custom templates klasöründe varsayılan template'leri oluştur
         default_templates = {
             "16x_prompt": {
                 "name": "16x Prompt Style",
@@ -177,24 +175,21 @@ Please follow the coding standards outlined in this documentation.""",
         }
         
         for template_id, template_data in default_templates.items():
-            template_file = self.templates_dir / f"{template_id}.json"
+            template_file = self.custom_templates_dir / f"{template_id}.json"
             if not template_file.exists():
-                with open(template_file, 'w', encoding='utf-8') as f:
-                    json.dump(template_data, f, indent=4, ensure_ascii=False)
+                try:
+                    with open(template_file, 'w', encoding='utf-8') as f:
+                        json.dump(template_data, f, indent=4, ensure_ascii=False)
+                except Exception as e:
+                    print(f"⚠️ Template oluşturulamadı {template_id}: {e}")
     
     def get_available_templates(self) -> Dict[str, Dict[str, Any]]:
-        """Get all available templates (default + custom)"""
+        """Get all available templates"""
         templates = {}
         
-        # Load default templates
-        for template_file in self.templates_dir.glob("*.json"):
-            try:
-                with open(template_file, 'r', encoding='utf-8') as f:
-                    template_data = json.load(f)
-                    templates[template_file.stem] = template_data
-                    templates[template_file.stem]['type'] = 'default'
-            except Exception as e:
-                print(f"Error loading template {template_file}: {e}")
+        # Fallback templates when files not found
+        if not any(self.custom_templates_dir.glob("*.json")):
+            return self._get_fallback_templates()
         
         # Load custom templates
         for template_file in self.custom_templates_dir.glob("*.json"):
@@ -447,3 +442,91 @@ Please follow the coding standards outlined in this documentation.""",
         pattern = r'\{([^}]+)\}'
         variables = re.findall(pattern, template_content)
         return list(set(variables))  # Remove duplicates
+    
+    def _get_fallback_templates(self) -> Dict[str, Dict[str, Any]]:
+        """Fallback templates when template files are not found"""
+        return {
+            "16x_prompt": {
+                "name": "16x Prompt Style",
+                "description": "AI code analysis prompt",
+                "template": """# 16x Prompt Analysis
+
+## Project Overview
+- **Project Name**: {project_name}
+- **Total Files**: {file_count}
+- **Primary Language**: {primary_language}
+- **Generated**: {timestamp}
+
+## Instructions
+Analyze this codebase and provide insights on:
+1. Code structure and architecture
+2. Potential improvements
+3. Security considerations
+4. Performance optimization opportunities
+
+## Codebase
+
+{file_contents}
+
+## Recommendations
+[Add your recommendations here]""",
+                "variables": ["project_name", "timestamp", "file_count", "primary_language", "file_contents"],
+                "type": "default"
+            },
+            "claude_project": {
+                "name": "Claude Project Setup",
+                "description": "Setup prompt for Claude Projects",
+                "template": """# {project_name} - Claude Project
+
+## Overview
+This is a {primary_language} project with {file_count} files.
+
+## Architecture
+{architecture_summary}
+
+## File Structure
+{file_structure}
+
+## Dependencies
+{dependencies}
+
+## Source Code
+
+{file_contents}
+
+## Instructions
+Please analyze this codebase and help with development tasks.""",
+                "variables": ["project_name", "primary_language", "file_count", "architecture_summary", "file_structure", "dependencies", "file_contents"],
+                "type": "default"
+            },
+            "code_review": {
+                "name": "Code Review",
+                "description": "Code review and analysis prompt",
+                "template": """# Code Review Request
+
+## Project Details
+- **Name**: {project_name}
+- **Language**: {primary_language}
+- **Files**: {file_count}
+- **Size**: {total_size}
+- **Date**: {timestamp}
+
+## Review Focus Areas
+Please review this code for:
+- ✅ Code quality and best practices
+- 🔒 Security vulnerabilities
+- ⚡ Performance issues
+- 📝 Documentation completeness
+- 🧪 Test coverage
+- 🏗️ Architecture design
+
+## Codebase
+
+{file_contents}
+
+## Findings
+Please provide detailed feedback on each focus area.""",
+                "variables": ["project_name", "primary_language", "file_count", "total_size", "timestamp", "file_contents"],
+                "type": "default"
+            }
+        }
